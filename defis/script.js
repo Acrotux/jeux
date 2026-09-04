@@ -6,6 +6,7 @@
     mastermind: "🎯 Mastermind",
     musique: "🎵 Musique",
     vitesse: "⚡ Vitesse",
+    precision: "🎯 Précision",
   };
   const GAME_PATHS = {
     sudoku: "../sudoku/index.html",
@@ -14,6 +15,7 @@
     mastermind: "../mastermind/index.html",
     musique: "../musique/index.html",
     vitesse: "../vitesse/index.html",
+    precision: "../precision/index.html",
   };
 
   const loggedOutEl = document.getElementById("defis-logged-out");

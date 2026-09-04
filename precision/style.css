@@ -1,0 +1,81 @@
+.mode-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.message {
+  text-align: center;
+  min-height: 1.4em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 10px 0 0;
+}
+
+/* Mode Visée */
+.visee-zone {
+  position: relative;
+  max-width: 500px;
+  height: 320px;
+  margin: 0 auto;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.visee-target {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, var(--accent) 0%, var(--primary) 70%);
+  box-shadow: 0 0 0 4px rgba(79, 109, 245, 0.2);
+  transform: translate(-50%, -50%);
+}
+
+.visee-hit-marker {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--text);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Mode Barre précise */
+.barre-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.barre-track {
+  position: relative;
+  height: 54px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.barre-target {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  background: rgba(47, 179, 128, 0.25);
+  border-left: 2px solid var(--success);
+  border-right: 2px solid var(--success);
+}
+
+.barre-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--primary);
+}

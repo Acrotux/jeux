@@ -1,4 +1,4 @@
-const CACHE_NAME = "jeux-cache-v8";
+const CACHE_NAME = "jeux-cache-v9";
 
 const PRECACHE_URLS = [
   "index.html",
@@ -29,6 +29,9 @@ const PRECACHE_URLS = [
   "vitesse/index.html",
   "vitesse/style.css",
   "vitesse/script.js",
+  "precision/index.html",
+  "precision/style.css",
+  "precision/script.js",
   "profil/index.html",
   "profil/style.css",
   "profil/script.js",

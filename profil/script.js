@@ -6,6 +6,7 @@
     mastermind: "🎯 Mastermind",
     musique: "🎵 Musique",
     vitesse: "⚡ Vitesse",
+    precision: "🎯 Précision",
   };
 
   const loggedOutEl = document.getElementById("profil-logged-out");
