@@ -1,6 +1,10 @@
 // Pastille de connexion + modale (email -> code -> pseudo), à placer dans
 // un conteneur <div id="auth-widget"></div> présent dans le header de chaque page.
 (function () {
+  // Racine du site déduite de l'URL de ce script (capturée tout de suite : document.currentScript
+  // n'est valable que pendant l'exécution synchrone initiale du script).
+  const siteRoot = new URL("../", document.currentScript.src);
+
   function initials(pseudo) {
     return (pseudo || "?").slice(0, 2).toUpperCase();
   }
@@ -144,15 +148,10 @@
 
     const label = profile && profile.pseudo ? profile.pseudo : "…";
     container.innerHTML = `
-      <a class="auth-pill" href="${rootPath()}profil/index.html">
+      <a class="auth-pill" href="${new URL("profil/index.html", siteRoot).href}">
         <span class="avatar">${initials(label)}</span>
         <span>${label}</span>
       </a>`;
-  }
-
-  function rootPath() {
-    const depth = window.location.pathname.split("/").filter(Boolean).length - 1;
-    return depth > 0 ? "../".repeat(depth) : "";
   }
 
   window.AuthWidget = { open: openModal, close: closeModal };
