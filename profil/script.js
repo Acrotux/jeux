@@ -5,6 +5,7 @@
     memory: "🧠 Memory",
     mastermind: "🎯 Mastermind",
     musique: "🎵 Musique",
+    vitesse: "⚡ Vitesse",
   };
 
   const loggedOutEl = document.getElementById("profil-logged-out");

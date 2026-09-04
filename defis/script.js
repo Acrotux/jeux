@@ -5,6 +5,7 @@
     memory: "🧠 Memory",
     mastermind: "🎯 Mastermind",
     musique: "🎵 Musique",
+    vitesse: "⚡ Vitesse",
   };
   const GAME_PATHS = {
     sudoku: "../sudoku/index.html",
@@ -12,6 +13,7 @@
     memory: "../memory/index.html",
     mastermind: "../mastermind/index.html",
     musique: "../musique/index.html",
+    vitesse: "../vitesse/index.html",
   };
 
   const loggedOutEl = document.getElementById("defis-logged-out");
