@@ -1,0 +1,82 @@
+.diff-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.sudoku-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  width: min(94vw, 460px);
+  height: min(94vw, 460px);
+  background: var(--border);
+  border: 3px solid var(--text);
+  border-radius: 8px;
+  overflow: hidden;
+  gap: 1px;
+}
+
+.cell {
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.9rem, 3.4vw, 1.3rem);
+  font-weight: 600;
+  color: var(--primary-dark);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+:root[data-theme="dark"] .cell { color: var(--primary); }
+
+.cell.given {
+  color: var(--text);
+  cursor: default;
+  font-weight: 700;
+}
+
+.cell.selected { background: rgba(79, 109, 245, 0.22); }
+.cell.peer { background: rgba(79, 109, 245, 0.08); }
+.cell.same-value { background: rgba(79, 109, 245, 0.16); }
+.cell.error { color: var(--danger) !important; }
+.cell.error-bg { background: rgba(226, 81, 63, 0.14); }
+
+.cell:nth-child(3n) { border-right: 2px solid var(--text); }
+.cell:nth-child(9n) { border-right: none; }
+.cell:nth-child(9n+1) { border-left: 2px solid var(--text); }
+
+.cell.thick-bottom { border-bottom: 2px solid var(--text); }
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  max-width: 460px;
+  margin: 18px auto 0;
+}
+
+.num-btn {
+  padding: 12px 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.num-btn:active { transform: scale(0.95); background: var(--border); }
+.num-btn.erase { color: var(--danger); }
+
+@media (min-width: 640px) {
+  .numpad { grid-template-columns: repeat(10, 1fr); }
+}

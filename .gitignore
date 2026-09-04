@@ -1,0 +1,4 @@
+supabase/.temp/
+supabase/.env.local
+supabase/.smtp-pass.local
+.DS_Store

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Sudoku — Jeux</title>
+<meta name="theme-color" content="#4f6df5" />
+<link rel="manifest" href="../manifest.json" />
+<link rel="icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../shared/style.css" />
+<link rel="stylesheet" href="../shared/auth-widget.css" />
+<link rel="stylesheet" href="style.css" />
+<script src="../shared/theme.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="../shared/supabase-config.js" defer></script>
+<script src="../shared/supabase-client.js" defer></script>
+<script src="../shared/auth-widget.js" defer></script>
+<script src="../shared/pwa.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← Jeux</a>
+    <div class="brand"><span class="logo">🔢</span> Sudoku</div>
+    <div class="header-actions">
+      <div id="auth-widget"></div>
+      <button id="theme-toggle" class="icon-btn" aria-label="Changer de thème">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Sudoku</h1>
+      <p>Remplis chaque ligne, colonne et bloc de 3×3 avec les chiffres 1 à 9.</p>
+    </div>
+
+    <div class="btn-row" style="margin-bottom: 16px;">
+      <button class="btn-secondary btn diff-btn" data-diff="facile">Facile</button>
+      <button class="btn-secondary btn diff-btn" data-diff="moyen">Moyen</button>
+      <button class="btn-secondary btn diff-btn" data-diff="difficile">Difficile</button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat"><div class="value" id="timer">00:00</div><div class="label">Temps</div></div>
+      <div class="stat"><div class="value" id="errors">0</div><div class="label">Erreurs</div></div>
+      <div class="stat"><div class="value" id="remaining">0</div><div class="label">Restantes</div></div>
+    </div>
+
+    <div class="sudoku-wrap">
+      <div id="grid" class="sudoku-grid"></div>
+    </div>
+
+    <div class="numpad" id="numpad">
+      <button class="num-btn" data-num="1">1</button>
+      <button class="num-btn" data-num="2">2</button>
+      <button class="num-btn" data-num="3">3</button>
+      <button class="num-btn" data-num="4">4</button>
+      <button class="num-btn" data-num="5">5</button>
+      <button class="num-btn" data-num="6">6</button>
+      <button class="num-btn" data-num="7">7</button>
+      <button class="num-btn" data-num="8">8</button>
+      <button class="num-btn" data-num="9">9</button>
+      <button class="num-btn erase" data-num="0">⌫</button>
+    </div>
+
+    <div class="btn-row" style="margin-top: 20px;">
+      <button class="btn" id="new-game">Nouvelle partie</button>
+      <button class="btn-secondary btn" id="check-game">Vérifier</button>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="win-modal">
+    <div class="modal">
+      <h2>🎉 Bravo !</h2>
+      <p id="win-text">Grille terminée sans erreur.</p>
+      <p id="win-save-status" class="auth-hint"></p>
+      <div class="btn-row">
+        <button class="btn" id="win-replay">Rejouer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

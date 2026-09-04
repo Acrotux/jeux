@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Musique — Jeux</title>
+<meta name="theme-color" content="#4f6df5" />
+<link rel="manifest" href="../manifest.json" />
+<link rel="icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../shared/style.css" />
+<link rel="stylesheet" href="../shared/auth-widget.css" />
+<link rel="stylesheet" href="style.css" />
+<script src="../shared/theme.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="../shared/supabase-config.js" defer></script>
+<script src="../shared/supabase-client.js" defer></script>
+<script src="../shared/auth-widget.js" defer></script>
+<script src="../shared/pwa.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← Jeux</a>
+    <div class="brand"><span class="logo">🎵</span> Musique</div>
+    <div class="header-actions">
+      <div id="auth-widget"></div>
+      <button id="theme-toggle" class="icon-btn" aria-label="Changer de thème">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Musique</h1>
+      <p>Des sons générés en direct, aucun fichier audio nécessaire.</p>
+    </div>
+
+    <div class="btn-row" style="margin-bottom: 20px;">
+      <button class="btn-secondary btn mode-btn active" data-mode="simon">Suite de sons</button>
+      <button class="btn-secondary btn mode-btn" data-mode="notes">Reconnaissance de notes</button>
+    </div>
+
+    <!-- Mode Simon -->
+    <section id="mode-simon">
+      <div class="stats-row">
+        <div class="stat"><div class="value" id="simon-level">0</div><div class="label">Niveau</div></div>
+        <div class="stat"><div class="value" id="simon-best">0</div><div class="label">Meilleur (session)</div></div>
+      </div>
+
+      <div class="simon-pads" id="simon-pads">
+        <button class="simon-pad" data-note="0" style="background:#e2513f;"></button>
+        <button class="simon-pad" data-note="1" style="background:#4f6df5;"></button>
+        <button class="simon-pad" data-note="2" style="background:#ffce45;"></button>
+        <button class="simon-pad" data-note="3" style="background:#2fb380;"></button>
+      </div>
+
+      <p id="simon-message" class="message"></p>
+
+      <div class="btn-row" style="margin-top: 18px;">
+        <button class="btn" id="simon-start">Démarrer</button>
+      </div>
+    </section>
+
+    <!-- Mode Reconnaissance de notes -->
+    <section id="mode-notes" style="display:none;">
+      <div class="stats-row">
+        <div class="stat"><div class="value" id="notes-round">0/10</div><div class="label">Manche</div></div>
+        <div class="stat"><div class="value" id="notes-score">0</div><div class="label">Bonnes réponses</div></div>
+      </div>
+
+      <div class="panel notes-panel">
+        <button class="btn" id="notes-play">🔊 Jouer la note</button>
+        <p id="notes-message" class="message"></p>
+        <div class="notes-choices" id="notes-choices"></div>
+      </div>
+
+      <div class="btn-row" style="margin-top: 18px;">
+        <button class="btn" id="notes-start">Démarrer</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="end-modal">
+    <div class="modal">
+      <h2 id="end-title">🎉 Bravo !</h2>
+      <p id="end-text"></p>
+      <p id="end-save-status" class="auth-hint"></p>
+      <div class="btn-row">
+        <button class="btn" id="end-replay">Rejouer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

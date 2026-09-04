@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Jeux — Petits jeux à jouer partout</title>
+<meta name="theme-color" content="#4f6df5" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="shared/style.css" />
+<link rel="stylesheet" href="shared/auth-widget.css" />
+<link rel="stylesheet" href="home.css" />
+<script src="shared/theme.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="shared/supabase-config.js" defer></script>
+<script src="shared/supabase-client.js" defer></script>
+<script src="shared/auth-widget.js" defer></script>
+<script src="shared/pwa.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><span class="logo">🎮</span> Jeux</div>
+    <div class="header-actions">
+      <a class="back-link" href="defis/index.html">⚔️ Défis</a>
+      <div id="auth-widget"></div>
+      <button id="theme-toggle" class="icon-btn" aria-label="Changer de thème">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Une pause jeu, où que tu sois</h1>
+      <p>Petits jeux gratuits, jouables au clavier, à la souris ou au doigt.</p>
+    </div>
+
+    <div id="defis-banner-slot"></div>
+
+    <div class="game-grid">
+      <a class="game-card" href="sudoku/index.html">
+        <div class="emoji">🔢</div>
+        <h2>Sudoku</h2>
+        <p>Remplis la grille 9×9 sans répéter aucun chiffre sur une ligne, une colonne ou un bloc.</p>
+        <div class="tag-row">
+          <span class="tag">Logique</span>
+          <span class="tag">3 niveaux</span>
+        </div>
+      </a>
+
+      <a class="game-card" href="pendu/index.html">
+        <div class="emoji">🪢</div>
+        <h2>Pendu</h2>
+        <p>Devine le mot mystère lettre par lettre avant que le dessin ne soit terminé.</p>
+        <div class="tag-row">
+          <span class="tag">Vocabulaire</span>
+          <span class="tag">Catégories</span>
+        </div>
+      </a>
+
+      <a class="game-card" href="memory/index.html">
+        <div class="emoji">🧠</div>
+        <h2>Memory</h2>
+        <p>Retrouve toutes les paires de cartes en un minimum de coups et le plus vite possible.</p>
+        <div class="tag-row">
+          <span class="tag">Mémoire</span>
+          <span class="tag">4 tailles</span>
+        </div>
+      </a>
+
+      <a class="game-card" href="mastermind/index.html">
+        <div class="emoji">🎯</div>
+        <h2>Mastermind</h2>
+        <p>Devine la combinaison secrète grâce aux indices de couleurs à chaque essai.</p>
+        <div class="tag-row">
+          <span class="tag tag-new">Nouveau</span>
+          <span class="tag">Logique</span>
+          <span class="tag">3 niveaux</span>
+        </div>
+      </a>
+
+      <a class="game-card" href="musique/index.html">
+        <div class="emoji">🎵</div>
+        <h2>Musique</h2>
+        <p>Reproduis une suite de sons ou reconnais la note jouée, sans aucun fichier audio.</p>
+        <div class="tag-row">
+          <span class="tag tag-new">Nouveau</span>
+          <span class="tag">Oreille</span>
+          <span class="tag">2 modes</span>
+        </div>
+      </a>
+    </div>
+
+    <section class="leaderboard-section">
+      <h2>🏆 Meilleurs joueurs</h2>
+      <div class="lb-tabs" id="lb-period-tabs">
+        <button class="lb-tab active" data-period="day">Jour</button>
+        <button class="lb-tab" data-period="week">Semaine</button>
+        <button class="lb-tab" data-period="month">Mois</button>
+        <button class="lb-tab" data-period="quarter">Trimestre</button>
+        <button class="lb-tab" data-period="year">Année</button>
+        <button class="lb-tab" data-period="all">Total</button>
+      </div>
+      <div class="lb-tabs" id="lb-tabs">
+        <button class="lb-tab active" data-game="">Tous jeux</button>
+        <button class="lb-tab" data-game="sudoku">Sudoku</button>
+        <button class="lb-tab" data-game="pendu">Pendu</button>
+        <button class="lb-tab" data-game="memory">Memory</button>
+        <button class="lb-tab" data-game="mastermind">Mastermind</button>
+        <button class="lb-tab" data-game="musique">Musique</button>
+      </div>
+      <ol id="lb-list" class="lb-list">
+        <li class="lb-empty">Chargement…</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Fait avec ❤️ — jouable sur mobile, tablette et ordinateur.
+  </footer>
+
+  <script src="home.js" defer></script>
+</body>
+</html>

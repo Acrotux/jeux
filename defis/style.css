@@ -1,0 +1,92 @@
+.defis-new h2 { margin-top: 0; }
+
+.defis-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.defis-search {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.defis-search input,
+#defis-game-select {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+#defis-game-select { width: auto; }
+
+.defis-search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  z-index: 5;
+  overflow: hidden;
+  display: none;
+}
+
+.defis-search-results.open { display: block; }
+
+.defis-search-results .result {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.defis-search-results .result:hover,
+.defis-search-results .result.selected { background: var(--border); }
+
+.defis-section-title {
+  font-size: 1.1rem;
+  margin: 28px 0 12px;
+}
+
+.defis-list { display: flex; flex-direction: column; gap: 10px; }
+
+.defis-empty {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  padding: 6px 2px;
+}
+
+.defis-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.defis-card .defis-info { flex: 1; min-width: 160px; }
+.defis-card .defis-game-label { font-weight: 700; }
+.defis-card .defis-sub { color: var(--text-muted); font-size: 0.82rem; }
+
+.defis-score-pair {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.defis-score-pair .vs { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; }
+.defis-score-pair .winner { color: var(--success); }
+
+.defis-card .btn, .defis-card .btn-secondary { padding: 8px 14px; font-size: 0.85rem; }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Mon profil — Jeux</title>
+<meta name="theme-color" content="#4f6df5" />
+<link rel="manifest" href="../manifest.json" />
+<link rel="icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../shared/style.css" />
+<link rel="stylesheet" href="../shared/auth-widget.css" />
+<link rel="stylesheet" href="style.css" />
+<script src="../shared/theme.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="../shared/supabase-config.js" defer></script>
+<script src="../shared/supabase-client.js" defer></script>
+<script src="../shared/auth-widget.js" defer></script>
+<script src="../shared/pwa.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← Jeux</a>
+    <div class="brand"><span class="logo">👤</span> Mon profil</div>
+    <div class="header-actions">
+      <a class="back-link" href="../defis/index.html">⚔️ Défis</a>
+      <div id="auth-widget"></div>
+      <button id="theme-toggle" class="icon-btn" aria-label="Changer de thème">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="profil-logged-out" class="panel profil-cta" style="display:none;">
+      <div class="emoji">🔐</div>
+      <h2>Connecte-toi pour sauvegarder tes scores</h2>
+      <p>Un email suffit — pas de mot de passe à retenir.</p>
+      <button class="btn" id="profil-login-btn">Se connecter</button>
+    </div>
+
+    <div id="profil-not-configured" class="panel profil-cta" style="display:none;">
+      <div class="emoji">🚧</div>
+      <h2>Comptes joueurs bientôt disponibles</h2>
+      <p>Cette fonctionnalité arrive prochainement.</p>
+    </div>
+
+    <div id="profil-logged-in" style="display:none;">
+      <div class="panel profil-header">
+        <div class="profil-avatar" id="profil-avatar">?</div>
+        <div>
+          <h1 id="profil-pseudo">—</h1>
+          <p class="profil-email" id="profil-email"></p>
+        </div>
+        <button class="btn-secondary btn" id="profil-logout">Se déconnecter</button>
+      </div>
+
+      <div class="stats-row" id="profil-stats"></div>
+
+      <div class="panel">
+        <h2>Historique des scores</h2>
+        <div id="profil-history" class="profil-history"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
