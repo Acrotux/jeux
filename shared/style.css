@@ -280,6 +280,21 @@ main {
 
 .modal h2 { margin-top: 0; }
 
+.version-badge {
+  position: fixed;
+  right: 10px;
+  bottom: 8px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 3px 9px;
+  border-radius: 999px;
+  opacity: 0.75;
+  z-index: 5;
+  pointer-events: none;
+}
+
 @media (max-width: 480px) {
   .site-header { padding: 12px 14px; }
   main { padding: 18px 12px 48px; }
