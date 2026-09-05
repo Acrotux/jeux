@@ -46,25 +46,30 @@
   const frappeMessageEl = document.getElementById("frappe-message");
 
   let frappeWords = [];
+  let frappeStatuses = [];
   let frappeIndex = 0;
   let frappeStartTime = 0;
   let frappeTypedChars = 0;
   let frappeCorrectChars = 0;
   let frappeRunning = false;
 
+  function normalizeWord(str) {
+    return str.trim().toLowerCase().normalize("NFC");
+  }
+
   function renderFrappeWords() {
     frappeWordsEl.innerHTML = frappeWords
       .map((w, i) => {
         let cls = "word";
-        if (i === frappeIndex) cls += " current";
+        if (frappeStatuses[i]) cls += ` ${frappeStatuses[i]}`;
+        else if (i === frappeIndex) cls += " current";
         return `<span class="${cls}" data-i="${i}">${w}</span>`;
       })
       .join("");
   }
 
   function markWord(status) {
-    const el = frappeWordsEl.querySelector(`[data-i="${frappeIndex}"]`);
-    if (el) el.className = "word " + status;
+    frappeStatuses[frappeIndex] = status;
   }
 
   function finishFrappe() {
@@ -86,10 +91,11 @@
     if (!frappeRunning) return;
     if (frappeStartTime === 0) frappeStartTime = performance.now();
 
-    if (e.key === " ") {
+    if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
-      const typed = frappeInput.value.trim();
-      const target = frappeWords[frappeIndex];
+      const typed = normalizeWord(frappeInput.value);
+      if (typed.length === 0) return; // évite de valider un mot vide
+      const target = normalizeWord(frappeWords[frappeIndex]);
       frappeTypedChars += Math.max(typed.length, target.length);
       if (typed === target) {
         frappeCorrectChars += target.length;
@@ -111,6 +117,7 @@
   function startFrappe() {
     endModal.classList.remove("open");
     frappeWords = shuffle(WORDS_POOL).slice(0, WORDS_PER_ROUND);
+    frappeStatuses = new Array(frappeWords.length).fill(null);
     frappeIndex = 0;
     frappeStartTime = 0;
     frappeTypedChars = 0;
