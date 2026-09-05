@@ -220,17 +220,36 @@
 
   document.getElementById("reaction-start").addEventListener("click", startReaction);
 
-  // ===== Mode fixé à l'arrivée (catalogue -> ?mode=frappe|reaction), aucun choix dans la page =====
+  // ===== Choix du test avant de commencer (écran de configuration) =====
   const MODE_LABELS = { frappe: "— Frappe", reaction: "— Réactivité" };
-  const urlMode = new URLSearchParams(location.search).get("mode");
-  const activeMode = urlMode === "reaction" ? "reaction" : "frappe";
+  let activeMode = null;
 
-  document.getElementById("mode-frappe").style.display = activeMode === "frappe" ? "block" : "none";
-  document.getElementById("mode-reaction").style.display = activeMode === "reaction" ? "block" : "none";
-  document.getElementById("mode-label").textContent = MODE_LABELS[activeMode];
+  function activateMode(mode) {
+    activeMode = mode;
+    document.getElementById("setup-screen").style.display = "none";
+    document.getElementById("game-content").style.display = "block";
+    document.getElementById("mode-frappe").style.display = mode === "frappe" ? "block" : "none";
+    document.getElementById("mode-reaction").style.display = mode === "reaction" ? "block" : "none";
+    document.getElementById("mode-label").textContent = MODE_LABELS[mode];
+    endModal.classList.remove("open");
+  }
+
+  document.querySelectorAll(".mode-choice-btn").forEach((btn) => {
+    btn.addEventListener("click", () => activateMode(btn.dataset.mode));
+  });
+
+  document.getElementById("change-setup").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("game-content").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  });
 
   endReplay.addEventListener("click", () => {
     if (activeMode === "frappe") startFrappe();
     else startReaction();
   });
+
+  // Arrivée directe sur un test précis depuis le catalogue (?mode=frappe|reaction)
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  if (urlMode === "frappe" || urlMode === "reaction") activateMode(urlMode);
 })();

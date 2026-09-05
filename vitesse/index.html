@@ -38,41 +38,53 @@
 
     <div id="mini-leaderboard" class="mini-leaderboard" data-game="vitesse"></div>
 
-    <!-- Mode Frappe -->
-    <section id="mode-frappe">
-      <div class="stats-row">
-        <div class="stat"><div class="value" id="frappe-wpm">0</div><div class="label">Mots / min</div></div>
-        <div class="stat"><div class="value" id="frappe-accuracy">100%</div><div class="label">Précision</div></div>
-        <div class="stat"><div class="value" id="frappe-progress">0/8</div><div class="label">Mots</div></div>
+    <div id="setup-screen" class="panel setup-screen">
+      <h2>Choisis un test</h2>
+      <div class="btn-row">
+        <button class="btn mode-choice-btn" data-mode="frappe">⌨️ Frappe</button>
+        <button class="btn mode-choice-btn" data-mode="reaction">⚡ Réactivité</button>
       </div>
+    </div>
 
-      <div class="panel frappe-panel">
-        <div id="frappe-words" class="frappe-words"></div>
-        <input type="text" id="frappe-input" class="frappe-input" placeholder="Tape le mot en surbrillance puis espace…" autocomplete="off" autocapitalize="off" spellcheck="false" disabled />
-      </div>
+    <div id="game-content" style="display:none;">
+      <p><a href="#" id="change-setup">← Changer de test</a></p>
 
-      <p id="frappe-message" class="message"></p>
+      <!-- Mode Frappe -->
+      <section id="mode-frappe">
+        <div class="stats-row">
+          <div class="stat"><div class="value" id="frappe-wpm">0</div><div class="label">Mots / min</div></div>
+          <div class="stat"><div class="value" id="frappe-accuracy">100%</div><div class="label">Précision</div></div>
+          <div class="stat"><div class="value" id="frappe-progress">0/8</div><div class="label">Mots</div></div>
+        </div>
 
-      <div class="btn-row" style="margin-top: 18px;">
-        <button class="btn" id="frappe-start">Démarrer</button>
-      </div>
-    </section>
+        <div class="panel frappe-panel">
+          <div id="frappe-words" class="frappe-words"></div>
+          <input type="text" id="frappe-input" class="frappe-input" placeholder="Tape le mot en surbrillance puis espace…" autocomplete="off" autocapitalize="off" spellcheck="false" disabled />
+        </div>
 
-    <!-- Mode Réactivité -->
-    <section id="mode-reaction" style="display:none;">
-      <div class="stats-row">
-        <div class="stat"><div class="value" id="reaction-round">0/5</div><div class="label">Manche</div></div>
-        <div class="stat"><div class="value" id="reaction-avg">–</div><div class="label">Moyenne (ms)</div></div>
-      </div>
+        <p id="frappe-message" class="message"></p>
 
-      <div id="reaction-zone" class="reaction-zone idle">
-        <span id="reaction-zone-text">Clique sur « Démarrer »</span>
-      </div>
+        <div class="btn-row" style="margin-top: 18px;">
+          <button class="btn" id="frappe-start">Démarrer</button>
+        </div>
+      </section>
 
-      <div class="btn-row" style="margin-top: 18px;">
-        <button class="btn" id="reaction-start">Démarrer</button>
-      </div>
-    </section>
+      <!-- Mode Réactivité -->
+      <section id="mode-reaction" style="display:none;">
+        <div class="stats-row">
+          <div class="stat"><div class="value" id="reaction-round">0/5</div><div class="label">Manche</div></div>
+          <div class="stat"><div class="value" id="reaction-avg">–</div><div class="label">Moyenne (ms)</div></div>
+        </div>
+
+        <div id="reaction-zone" class="reaction-zone idle">
+          <span id="reaction-zone-text">Clique sur « Démarrer »</span>
+        </div>
+
+        <div class="btn-row" style="margin-top: 18px;">
+          <button class="btn" id="reaction-start">Démarrer</button>
+        </div>
+      </section>
+    </div>
   </main>
 
   <div class="modal-overlay" id="end-modal">

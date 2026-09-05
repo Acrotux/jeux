@@ -38,40 +38,52 @@
 
     <div id="mini-leaderboard" class="mini-leaderboard" data-game="precision"></div>
 
-    <!-- Mode Visée -->
-    <section id="mode-visee">
-      <div class="stats-row">
-        <div class="stat"><div class="value" id="visee-round">0/8</div><div class="label">Cible</div></div>
-        <div class="stat"><div class="value" id="visee-avg">–</div><div class="label">Précision moy.</div></div>
+    <div id="setup-screen" class="panel setup-screen">
+      <h2>Choisis un test</h2>
+      <div class="btn-row">
+        <button class="btn mode-choice-btn" data-mode="visee">🎯 Visée</button>
+        <button class="btn mode-choice-btn" data-mode="barre">📏 Barre précise</button>
       </div>
+    </div>
 
-      <div id="visee-zone" class="visee-zone"></div>
+    <div id="game-content" style="display:none;">
+      <p><a href="#" id="change-setup">← Changer de test</a></p>
 
-      <div class="btn-row" style="margin-top: 18px;">
-        <button class="btn" id="visee-start">Démarrer</button>
-      </div>
-    </section>
-
-    <!-- Mode Barre précise -->
-    <section id="mode-barre" style="display:none;">
-      <div class="stats-row">
-        <div class="stat"><div class="value" id="barre-round">0/5</div><div class="label">Manche</div></div>
-        <div class="stat"><div class="value" id="barre-avg">–</div><div class="label">Précision moy.</div></div>
-      </div>
-
-      <div class="barre-wrap">
-        <div id="barre-track" class="barre-track">
-          <div id="barre-target" class="barre-target"></div>
-          <div id="barre-indicator" class="barre-indicator"></div>
+      <!-- Mode Visée -->
+      <section id="mode-visee">
+        <div class="stats-row">
+          <div class="stat"><div class="value" id="visee-round">0/8</div><div class="label">Cible</div></div>
+          <div class="stat"><div class="value" id="visee-avg">–</div><div class="label">Précision moy.</div></div>
         </div>
-        <button class="btn" id="barre-stop" disabled>Stop !</button>
-      </div>
-      <p id="barre-message" class="message"></p>
 
-      <div class="btn-row" style="margin-top: 18px;">
-        <button class="btn" id="barre-start">Démarrer</button>
-      </div>
-    </section>
+        <div id="visee-zone" class="visee-zone"></div>
+
+        <div class="btn-row" style="margin-top: 18px;">
+          <button class="btn" id="visee-start">Démarrer</button>
+        </div>
+      </section>
+
+      <!-- Mode Barre précise -->
+      <section id="mode-barre" style="display:none;">
+        <div class="stats-row">
+          <div class="stat"><div class="value" id="barre-round">0/5</div><div class="label">Manche</div></div>
+          <div class="stat"><div class="value" id="barre-avg">–</div><div class="label">Précision moy.</div></div>
+        </div>
+
+        <div class="barre-wrap">
+          <div id="barre-track" class="barre-track">
+            <div id="barre-target" class="barre-target"></div>
+            <div id="barre-indicator" class="barre-indicator"></div>
+          </div>
+          <button class="btn" id="barre-stop" disabled>Stop !</button>
+        </div>
+        <p id="barre-message" class="message"></p>
+
+        <div class="btn-row" style="margin-top: 18px;">
+          <button class="btn" id="barre-start">Démarrer</button>
+        </div>
+      </section>
+    </div>
   </main>
 
   <div class="modal-overlay" id="end-modal">

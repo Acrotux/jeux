@@ -210,17 +210,36 @@
   });
   document.getElementById("notes-start").addEventListener("click", startNotes);
 
-  // ===== Mode fixé à l'arrivée (catalogue -> ?mode=simon|notes), aucun choix dans la page =====
+  // ===== Choix du test avant de commencer (écran de configuration) =====
   const MODE_LABELS = { simon: "— Suite de sons", notes: "— Reconnaissance de notes" };
-  const urlMode = new URLSearchParams(location.search).get("mode");
-  const activeMode = urlMode === "notes" ? "notes" : "simon";
+  let activeMode = null;
 
-  document.getElementById("mode-simon").style.display = activeMode === "simon" ? "block" : "none";
-  document.getElementById("mode-notes").style.display = activeMode === "notes" ? "block" : "none";
-  document.getElementById("mode-label").textContent = MODE_LABELS[activeMode];
+  function activateMode(mode) {
+    activeMode = mode;
+    document.getElementById("setup-screen").style.display = "none";
+    document.getElementById("game-content").style.display = "block";
+    document.getElementById("mode-simon").style.display = mode === "simon" ? "block" : "none";
+    document.getElementById("mode-notes").style.display = mode === "notes" ? "block" : "none";
+    document.getElementById("mode-label").textContent = MODE_LABELS[mode];
+    endModal.classList.remove("open");
+  }
+
+  document.querySelectorAll(".mode-choice-btn").forEach((btn) => {
+    btn.addEventListener("click", () => activateMode(btn.dataset.mode));
+  });
+
+  document.getElementById("change-setup").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("game-content").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  });
 
   endReplay.addEventListener("click", () => {
     if (activeMode === "simon") startSimon();
     else startNotes();
   });
+
+  // Arrivée directe sur un test précis depuis le catalogue (?mode=simon|notes)
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  if (urlMode === "simon" || urlMode === "notes") activateMode(urlMode);
 })();

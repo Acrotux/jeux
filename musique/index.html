@@ -38,44 +38,56 @@
 
     <div id="mini-leaderboard" class="mini-leaderboard" data-game="musique"></div>
 
-    <!-- Mode Simon -->
-    <section id="mode-simon">
-      <div class="stats-row">
-        <div class="stat"><div class="value" id="simon-level">0</div><div class="label">Niveau</div></div>
-        <div class="stat"><div class="value" id="simon-best">0</div><div class="label">Meilleur (session)</div></div>
+    <div id="setup-screen" class="panel setup-screen">
+      <h2>Choisis un test</h2>
+      <div class="btn-row">
+        <button class="btn mode-choice-btn" data-mode="simon">Suite de sons</button>
+        <button class="btn mode-choice-btn" data-mode="notes">Reconnaissance de notes</button>
       </div>
+    </div>
 
-      <div class="simon-pads" id="simon-pads">
-        <button class="simon-pad" data-note="0" style="background:#e2513f;"></button>
-        <button class="simon-pad" data-note="1" style="background:#4f6df5;"></button>
-        <button class="simon-pad" data-note="2" style="background:#ffce45;"></button>
-        <button class="simon-pad" data-note="3" style="background:#2fb380;"></button>
-      </div>
+    <div id="game-content" style="display:none;">
+      <p><a href="#" id="change-setup">← Changer de test</a></p>
 
-      <p id="simon-message" class="message"></p>
+      <!-- Mode Simon -->
+      <section id="mode-simon">
+        <div class="stats-row">
+          <div class="stat"><div class="value" id="simon-level">0</div><div class="label">Niveau</div></div>
+          <div class="stat"><div class="value" id="simon-best">0</div><div class="label">Meilleur (session)</div></div>
+        </div>
 
-      <div class="btn-row" style="margin-top: 18px;">
-        <button class="btn" id="simon-start">Démarrer</button>
-      </div>
-    </section>
+        <div class="simon-pads" id="simon-pads">
+          <button class="simon-pad" data-note="0" style="background:#e2513f;"></button>
+          <button class="simon-pad" data-note="1" style="background:#4f6df5;"></button>
+          <button class="simon-pad" data-note="2" style="background:#ffce45;"></button>
+          <button class="simon-pad" data-note="3" style="background:#2fb380;"></button>
+        </div>
 
-    <!-- Mode Reconnaissance de notes -->
-    <section id="mode-notes" style="display:none;">
-      <div class="stats-row">
-        <div class="stat"><div class="value" id="notes-round">0/10</div><div class="label">Manche</div></div>
-        <div class="stat"><div class="value" id="notes-score">0</div><div class="label">Bonnes réponses</div></div>
-      </div>
+        <p id="simon-message" class="message"></p>
 
-      <div class="panel notes-panel">
-        <button class="btn" id="notes-play">🔊 Jouer la note</button>
-        <p id="notes-message" class="message"></p>
-        <div class="notes-choices" id="notes-choices"></div>
-      </div>
+        <div class="btn-row" style="margin-top: 18px;">
+          <button class="btn" id="simon-start">Démarrer</button>
+        </div>
+      </section>
 
-      <div class="btn-row" style="margin-top: 18px;">
-        <button class="btn" id="notes-start">Démarrer</button>
-      </div>
-    </section>
+      <!-- Mode Reconnaissance de notes -->
+      <section id="mode-notes" style="display:none;">
+        <div class="stats-row">
+          <div class="stat"><div class="value" id="notes-round">0/10</div><div class="label">Manche</div></div>
+          <div class="stat"><div class="value" id="notes-score">0</div><div class="label">Bonnes réponses</div></div>
+        </div>
+
+        <div class="panel notes-panel">
+          <button class="btn" id="notes-play">🔊 Jouer la note</button>
+          <p id="notes-message" class="message"></p>
+          <div class="notes-choices" id="notes-choices"></div>
+        </div>
+
+        <div class="btn-row" style="margin-top: 18px;">
+          <button class="btn" id="notes-start">Démarrer</button>
+        </div>
+      </section>
+    </div>
   </main>
 
   <div class="modal-overlay" id="end-modal">

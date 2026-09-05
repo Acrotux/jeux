@@ -210,17 +210,39 @@
 
   document.getElementById("barre-start").addEventListener("click", startBarre);
 
-  // ===== Mode fixé à l'arrivée (catalogue -> ?mode=visee|barre), aucun choix dans la page =====
+  // ===== Choix du test avant de commencer (écran de configuration) =====
   const MODE_LABELS = { visee: "— Visée", barre: "— Barre précise" };
-  const urlMode = new URLSearchParams(location.search).get("mode");
-  const activeMode = urlMode === "barre" ? "barre" : "visee";
+  let activeMode = null;
 
-  document.getElementById("mode-visee").style.display = activeMode === "visee" ? "block" : "none";
-  document.getElementById("mode-barre").style.display = activeMode === "barre" ? "block" : "none";
-  document.getElementById("mode-label").textContent = MODE_LABELS[activeMode];
+  function activateMode(mode) {
+    activeMode = mode;
+    document.getElementById("setup-screen").style.display = "none";
+    document.getElementById("game-content").style.display = "block";
+    document.getElementById("mode-visee").style.display = mode === "visee" ? "block" : "none";
+    document.getElementById("mode-barre").style.display = mode === "barre" ? "block" : "none";
+    document.getElementById("mode-label").textContent = MODE_LABELS[mode];
+    endModal.classList.remove("open");
+  }
+
+  document.querySelectorAll(".mode-choice-btn").forEach((btn) => {
+    btn.addEventListener("click", () => activateMode(btn.dataset.mode));
+  });
+
+  document.getElementById("change-setup").addEventListener("click", (e) => {
+    e.preventDefault();
+    viseeRunning = false;
+    barreRunning = false;
+    if (barreRafId) cancelAnimationFrame(barreRafId);
+    document.getElementById("game-content").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  });
 
   endReplay.addEventListener("click", () => {
     if (activeMode === "visee") startVisee();
     else startBarre();
   });
+
+  // Arrivée directe sur un test précis depuis le catalogue (?mode=visee|barre)
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  if (urlMode === "visee" || urlMode === "barre") activateMode(urlMode);
 })();
