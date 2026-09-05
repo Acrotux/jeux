@@ -1,34 +1,36 @@
-/* ===== Style commun à tout le site de jeux ===== */
+/* ===== Thème "Arcade" — style commun à tout le site de jeux ===== */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap");
 
 :root {
-  --bg: #f4f6fb;
+  --bg: #f6f4fd;
   --bg-alt: #ffffff;
-  --text: #1c2230;
-  --text-muted: #5b6478;
-  --primary: #4f6df5;
-  --primary-dark: #3a52c9;
-  --accent: #ff8a5c;
-  --success: #2fb380;
-  --danger: #e2513f;
-  --border: #e1e5f0;
-  --shadow: 0 8px 24px rgba(30, 40, 80, 0.08);
+  --text: #241b3a;
+  --text-muted: #6a6285;
+  --primary: #7c5cff;
+  --primary-dark: #5f3fe0;
+  --accent: #ff5c8a;
+  --success: #1fb787;
+  --danger: #ef4360;
+  --border: #e3ddf7;
+  --shadow: 0 8px 24px rgba(90, 60, 180, 0.12);
   --radius: 16px;
   --radius-sm: 10px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Baloo 2", var(--font);
 }
 
 :root[data-theme="dark"] {
-  --bg: #12141f;
-  --bg-alt: #1b1e2d;
-  --text: #edf0fa;
-  --text-muted: #a2a8c0;
-  --primary: #7d94ff;
-  --primary-dark: #5a72e0;
-  --accent: #ffa374;
-  --success: #4fd6a0;
-  --danger: #ff7466;
-  --border: #2a2e42;
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --bg: #150f24;
+  --bg-alt: #1f1836;
+  --text: #f1edff;
+  --text-muted: #b3a8d6;
+  --primary: #a48cff;
+  --primary-dark: #8567ff;
+  --accent: #ff86ab;
+  --success: #4fe0b0;
+  --danger: #ff6f82;
+  --border: #352a55;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 * { box-sizing: border-box; }
@@ -40,7 +42,12 @@ html, body {
 
 body {
   font-family: var(--font);
-  background: var(--bg);
+  background: var(--bg); /* repli si color-mix() n'est pas supporté */
+  background:
+    radial-gradient(600px circle at 8% -5%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 60%),
+    radial-gradient(600px circle at 100% 10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
   -webkit-tap-highlight-color: transparent;
@@ -48,6 +55,12 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+h1, h2, h3,
+.brand, .btn, .btn-secondary, .btn-danger,
+.site-nav-link, .lb-tab, .style-tab, .mode-btn, .duel-mode-btn {
+  font-family: var(--font-display);
+}
 
 .site-header {
   display: flex;
