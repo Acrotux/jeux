@@ -51,7 +51,7 @@ window.GAMES = [
     emoji: "🎵",
     path: "musique/index.html",
     desc: "Reproduis une suite de sons ou reconnais la note jouée, sans aucun fichier audio.",
-    styles: ["Oreille"],
+    styles: ["Musique"],
     tags: ["2 modes"],
     addedAt: "2026-09-04T20:05:00Z",
     updatedAt: "2026-09-05T04:45:34Z",
@@ -107,7 +107,7 @@ window.buildGameActivities = function (games) {
           path: `${g.path}?mode=${m.id}`,
           desc: g.desc,
           styles: g.styles,
-          tags: [g.name],
+          tags: g.styles.includes(g.name) ? [] : [g.name],
           addedAt: g.addedAt,
           updatedAt: g.updatedAt,
         });
