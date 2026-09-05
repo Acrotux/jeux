@@ -1,24 +1,26 @@
 (function () {
-  function gameCardHtml(game) {
+  function activityCardHtml(activity) {
     return `
-      <a class="game-card" href="${game.path}">
-        <div class="emoji">${game.emoji}</div>
-        <h2>${game.name}</h2>
-        <p>${game.desc}</p>
+      <a class="game-card" href="${activity.path}">
+        <div class="emoji">${activity.emoji}</div>
+        <h2>${activity.name}</h2>
+        <p>${activity.desc}</p>
         <div class="tag-row">
-          ${game.styles.map((s) => `<span class="tag">${s}</span>`).join("")}
+          ${activity.styles.map((s) => `<span class="tag">${s}</span>`).join("")}
+          ${activity.tags.map((t) => `<span class="tag">${t}</span>`).join("")}
         </div>
       </a>`;
   }
 
   function renderRecentGames() {
-    if (!window.GAMES) return;
+    if (!window.GAMES || !window.buildGameActivities) return;
+    const activities = window.buildGameActivities(window.GAMES);
 
-    const byAdded = [...window.GAMES].sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt)).slice(0, 3);
-    const byUpdated = [...window.GAMES].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 3);
+    const byAdded = [...activities].sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt)).slice(0, 3);
+    const byUpdated = [...activities].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 3);
 
-    document.getElementById("recent-added").innerHTML = byAdded.map(gameCardHtml).join("");
-    document.getElementById("recent-updated").innerHTML = byUpdated.map(gameCardHtml).join("");
+    document.getElementById("recent-added").innerHTML = byAdded.map(activityCardHtml).join("");
+    document.getElementById("recent-updated").innerHTML = byUpdated.map(activityCardHtml).join("");
   }
 
   async function loadDuelBanner() {

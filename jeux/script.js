@@ -4,37 +4,6 @@
   let currentStyle = "";
   let activities = [];
 
-  // Un jeu à plusieurs modes devient plusieurs entrées cliquables
-  // indépendantes (ex. Précision -> Visée / Barre précise), pour que le
-  // choix se fasse ici plutôt qu'à l'intérieur du jeu.
-  function buildActivities(games) {
-    const list = [];
-    games.forEach((g) => {
-      if (g.modes && g.modes.length) {
-        g.modes.forEach((m) => {
-          list.push({
-            name: m.name,
-            emoji: g.emoji,
-            path: `${g.path}?mode=${m.id}`,
-            desc: g.desc,
-            styles: g.styles,
-            tags: [g.name],
-          });
-        });
-      } else {
-        list.push({
-          name: g.name,
-          emoji: g.emoji,
-          path: g.path,
-          desc: g.desc,
-          styles: g.styles,
-          tags: g.tags,
-        });
-      }
-    });
-    return list;
-  }
-
   function cardHtml(activity) {
     return `
       <a class="game-card" href="../${activity.path}">
@@ -54,7 +23,7 @@
   }
 
   function init() {
-    activities = buildActivities(window.GAMES);
+    activities = window.buildGameActivities(window.GAMES);
     const styles = [...new Set(window.GAMES.flatMap((g) => g.styles))].sort();
 
     tabsEl.innerHTML =

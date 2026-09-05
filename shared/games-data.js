@@ -91,3 +91,39 @@ window.GAMES = [
     ],
   },
 ];
+
+// Un jeu à plusieurs modes devient plusieurs entrées indépendantes
+// (ex. Précision -> Visée / Barre précise), chacune avec le nom du test
+// comme titre et le jeu parent en étiquette. Utilisé par le catalogue et
+// par l'accueil, pour que ces noms apparaissent partout de la même façon.
+window.buildGameActivities = function (games) {
+  const list = [];
+  games.forEach((g) => {
+    if (g.modes && g.modes.length) {
+      g.modes.forEach((m) => {
+        list.push({
+          name: m.name,
+          emoji: g.emoji,
+          path: `${g.path}?mode=${m.id}`,
+          desc: g.desc,
+          styles: g.styles,
+          tags: [g.name],
+          addedAt: g.addedAt,
+          updatedAt: g.updatedAt,
+        });
+      });
+    } else {
+      list.push({
+        name: g.name,
+        emoji: g.emoji,
+        path: g.path,
+        desc: g.desc,
+        styles: g.styles,
+        tags: g.tags,
+        addedAt: g.addedAt,
+        updatedAt: g.updatedAt,
+      });
+    }
+  });
+  return list;
+};
