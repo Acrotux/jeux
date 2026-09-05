@@ -1,8 +1,4 @@
 (function () {
-  const tabsEl = document.getElementById("style-tabs");
-  const gridEl = document.getElementById("games-grid");
-  let currentStyle = "";
-
   function cardHtml(game) {
     return `
       <a class="game-card" href="../${game.path}">
@@ -16,28 +12,8 @@
       </a>`;
   }
 
-  function render() {
-    const games = window.GAMES.filter((g) => !currentStyle || g.styles.includes(currentStyle));
-    gridEl.innerHTML = games.map(cardHtml).join("");
-  }
-
-  function init() {
-    const styles = [...new Set(window.GAMES.flatMap((g) => g.styles))].sort();
-    tabsEl.innerHTML =
-      `<button class="style-tab active" data-style="">Tous</button>` +
-      styles.map((s) => `<button class="style-tab" data-style="${s}">${s}</button>`).join("");
-
-    tabsEl.querySelectorAll(".style-tab").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        tabsEl.querySelectorAll(".style-tab").forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        currentStyle = btn.dataset.style;
-        render();
-      });
-    });
-
-    render();
-  }
-
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!window.GAMES) return;
+    document.getElementById("games-grid").innerHTML = window.GAMES.map(cardHtml).join("");
+  });
 })();

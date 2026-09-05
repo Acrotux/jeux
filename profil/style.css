@@ -62,27 +62,62 @@
 .profil-email { margin: 2px 0 0; color: var(--text-muted); font-size: 0.85rem; }
 .profil-header .btn-secondary { margin-left: auto; }
 
-.profil-history { display: flex; flex-direction: column; gap: 8px; }
+.profil-history { display: flex; flex-direction: column; gap: 10px; }
 
-.profil-row {
+.profil-game-group {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.profil-game-header {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 4px;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.92rem;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--text);
 }
 
-.profil-row:last-child { border-bottom: none; }
+.profil-game-name { font-weight: 700; white-space: nowrap; }
 
-.profil-row .game-tag {
-  font-weight: 700;
-  text-transform: capitalize;
-  width: 90px;
+.profil-game-stats {
+  flex: 1;
+  color: var(--text-muted);
+  font-size: 0.82rem;
 }
 
-.profil-row .date { color: var(--text-muted); flex: 1; font-size: 0.82rem; }
-.profil-row .score { font-weight: 700; color: var(--primary); }
+.profil-game-chevron {
+  color: var(--text-muted);
+  transition: transform 0.15s ease;
+}
+
+.profil-game-header.open .profil-game-chevron { transform: rotate(180deg); }
+
+.profil-game-scores {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+.profil-game-scores.open { max-height: 1000px; }
+
+.profil-score-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.profil-score-row .date { color: var(--text-muted); }
+.profil-score-row .score { font-weight: 700; color: var(--primary); }
 
 .profil-empty { color: var(--text-muted); text-align: center; padding: 20px; font-size: 0.9rem; }
 
