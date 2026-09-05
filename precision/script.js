@@ -170,7 +170,7 @@
     saveScore(score);
   }
 
-  stopBtn.addEventListener("click", () => {
+  function stopBarre() {
     if (!barreRunning) return;
     barreRunning = false;
     cancelAnimationFrame(barreRafId);
@@ -188,6 +188,16 @@
     } else {
       setTimeout(startBarreRound, 700);
     }
+  }
+
+  stopBtn.addEventListener("click", stopBarre);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== " ") return;
+    if (document.getElementById("mode-barre").style.display === "none") return;
+    if (!barreRunning) return;
+    e.preventDefault();
+    stopBarre();
   });
 
   function startBarre() {
