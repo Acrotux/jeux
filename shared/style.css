@@ -209,6 +209,13 @@ main {
 
 .btn-secondary:hover { background: var(--border); }
 
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-danger:hover { background: #c0402f; }
+
 .btn-row {
   display: flex;
   gap: 10px;
@@ -255,6 +262,9 @@ main {
   color: var(--text-muted);
   font-size: 0.85rem;
 }
+
+.site-footer p { margin: 4px 0; }
+.site-footer a { text-decoration: underline; }
 
 .modal-overlay {
   position: fixed;

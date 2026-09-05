@@ -86,6 +86,14 @@
 
 .profil-empty { color: var(--text-muted); text-align: center; padding: 20px; font-size: 0.9rem; }
 
+.profil-danger-zone {
+  margin-top: 18px;
+  border-color: var(--danger);
+}
+
+.profil-danger-zone h2 { color: var(--danger); margin-top: 0; }
+.profil-danger-zone p { color: var(--text-muted); font-size: 0.9rem; }
+
 @media (max-width: 480px) {
   .profil-header { flex-wrap: wrap; }
   .profil-header .btn-secondary { margin-left: 0; width: 100%; }

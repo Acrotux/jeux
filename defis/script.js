@@ -35,6 +35,12 @@
   let selectedOpponent = null;
   let searchTimer = null;
 
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str == null ? "" : String(str);
+    return div.innerHTML;
+  }
+
   function fmtDate(iso) {
     return new Date(iso).toLocaleString("fr-FR", { dateStyle: "medium", timeStyle: "short" });
   }
@@ -56,7 +62,10 @@
     searchTimer = setTimeout(async () => {
       const results = await window.JeuxAuth.searchProfiles(query);
       searchResultsEl.innerHTML = results
-        .map((r) => `<div class="result" data-id="${r.id}" data-pseudo="${r.pseudo}">${r.pseudo}</div>`)
+        .map(
+          (r) =>
+            `<div class="result" data-id="${escapeHtml(r.id)}" data-pseudo="${escapeHtml(r.pseudo)}">${escapeHtml(r.pseudo)}</div>`
+        )
         .join("");
       searchResultsEl.classList.toggle("open", results.length > 0);
     }, 250);
@@ -95,9 +104,9 @@
     const opponentWins = c.opponent_score > c.challenger_score;
     return `
       <div class="defis-score-pair">
-        <span class="${challengerWins ? "winner" : ""}">${c.challenger_pseudo} ${c.challenger_score ?? 0}</span>
+        <span class="${challengerWins ? "winner" : ""}">${escapeHtml(c.challenger_pseudo)} ${c.challenger_score ?? 0}</span>
         <span class="vs">vs</span>
-        <span class="${opponentWins ? "winner" : ""}">${c.opponent_score ?? 0} ${c.opponent_pseudo}</span>
+        <span class="${opponentWins ? "winner" : ""}">${c.opponent_score ?? 0} ${escapeHtml(c.opponent_pseudo)}</span>
       </div>`;
   }
 
@@ -116,7 +125,7 @@
         <div class="defis-card">
           <div class="defis-info">
             <div class="defis-game-label">${GAME_LABELS[c.game]}</div>
-            <div class="defis-sub">${c.challenger_pseudo} te défie · ${fmtDate(c.created_at)}</div>
+            <div class="defis-sub">${escapeHtml(c.challenger_pseudo)} te défie · ${fmtDate(c.created_at)}</div>
           </div>
           <button class="btn" data-accept="${c.id}">Accepter</button>
           <button class="btn-secondary btn" data-decline="${c.id}">Refuser</button>
@@ -137,7 +146,7 @@
         <div class="defis-card">
           <div class="defis-info">
             <div class="defis-game-label">${GAME_LABELS[c.game]}</div>
-            <div class="defis-sub">${c.challenger_pseudo} vs ${c.opponent_pseudo} · ${hoursLeft(c.expires_at)}h restantes</div>
+            <div class="defis-sub">${escapeHtml(c.challenger_pseudo)} vs ${escapeHtml(c.opponent_pseudo)} · ${hoursLeft(c.expires_at)}h restantes</div>
           </div>
           ${scorePairHtml(c)}
           <a class="btn" href="${GAME_PATHS[c.game]}">Jouer</a>
@@ -161,13 +170,14 @@
         else {
           const cs = c.challenger_score ?? 0;
           const os = c.opponent_score ?? 0;
-          resultLabel = cs === os ? "Égalité" : `${cs > os ? c.challenger_pseudo : c.opponent_pseudo} a gagné`;
+          resultLabel =
+            cs === os ? "Égalité" : `${escapeHtml(cs > os ? c.challenger_pseudo : c.opponent_pseudo)} a gagné`;
         }
         return `
           <div class="defis-card">
             <div class="defis-info">
               <div class="defis-game-label">${GAME_LABELS[c.game]}</div>
-              <div class="defis-sub">${c.challenger_pseudo} vs ${c.opponent_pseudo} · ${resultLabel}</div>
+              <div class="defis-sub">${escapeHtml(c.challenger_pseudo)} vs ${escapeHtml(c.opponent_pseudo)} · ${resultLabel}</div>
             </div>
             ${c.status === "accepted" ? scorePairHtml(c) : ""}
             ${deleteBtnHtml(c.id)}

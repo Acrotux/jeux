@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Confidentialité — Jeux</title>
+<meta name="theme-color" content="#4f6df5" />
+<link rel="manifest" href="../manifest.json" />
+<link rel="icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../shared/style.css" />
+<link rel="stylesheet" href="../shared/auth-widget.css" />
+<link rel="stylesheet" href="../shared/legal.css" />
+<script src="../shared/theme.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0" defer></script>
+<script src="../shared/supabase-config.js" defer></script>
+<script src="../shared/supabase-client.js" defer></script>
+<script src="../shared/auth-widget.js" defer></script>
+<script src="../shared/pwa.js" defer></script>
+<script src="../shared/version-badge.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← Jeux</a>
+    <div class="brand"><span class="logo">🔒</span> Confidentialité</div>
+    <div class="header-actions">
+      <div id="auth-widget"></div>
+      <button id="theme-toggle" class="icon-btn" aria-label="Changer de thème">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Politique de confidentialité</h1>
+    </div>
+
+    <div class="panel legal-article">
+      <p class="legal-updated">Dernière mise à jour : 5 septembre 2026</p>
+
+      <h2>Quelles données sont collectées ?</h2>
+      <ul>
+        <li><strong>Adresse email</strong> — uniquement pour te connecter par code à usage unique (pas de mot de passe stocké).</li>
+        <li><strong>Pseudonyme</strong> — choisi par toi, affiché publiquement dans les classements et les défis.</li>
+        <li><strong>Photo de profil</strong> — optionnelle, affichée publiquement si tu en ajoutes une.</li>
+        <li><strong>Scores de jeu</strong> — enregistrés à chaque partie terminée si tu es connecté.</li>
+        <li><strong>Défis</strong> — le pseudonyme des joueurs impliqués et les scores échangés lors d'un défi.</li>
+      </ul>
+
+      <h2>Qui peut voir quoi ?</h2>
+      <p>
+        Ton <strong>pseudonyme</strong>, ta <strong>photo de profil</strong> et tes <strong>scores</strong>
+        sont visibles par les autres joueurs du site (classements de l'accueil, pages de défis).
+        Ton <strong>adresse email</strong> n'est jamais affichée publiquement ni partagée avec les
+        autres joueurs.
+      </p>
+
+      <h2>Pourquoi ces données ?</h2>
+      <p>
+        Elles servent uniquement à faire fonctionner le site : t'identifier, sauvegarder tes
+        scores, afficher les classements, et permettre les défis entre joueurs. La base légale de
+        ce traitement est ton consentement, donné lors de la création volontaire de ton compte.
+      </p>
+
+      <h2>Qui héberge ces données ?</h2>
+      <ul>
+        <li>
+          <strong>Supabase</strong> (base de données, authentification, stockage des photos) —
+          infrastructure hébergée en Europe (AWS, région Paris).
+        </li>
+        <li>
+          <strong>Google / Gmail</strong> — achemine les emails contenant ton code de connexion,
+          envoyés depuis l'adresse email de l'éditeur du site.
+        </li>
+      </ul>
+
+      <h2>Cookies et stockage local</h2>
+      <p>
+        Ce site n'utilise aucun cookie ni traceur publicitaire. Il utilise le stockage local de
+        ton navigateur (localStorage) uniquement pour deux besoins strictement nécessaires au
+        fonctionnement du site : mémoriser ta préférence d'affichage (thème clair/sombre) et
+        garder ta session de connexion active.
+      </p>
+
+      <h2>Durée de conservation</h2>
+      <p>
+        Tes données sont conservées tant que ton compte existe. Tu peux les supprimer à tout
+        moment (voir ci-dessous).
+      </p>
+
+      <h2>Tes droits</h2>
+      <p>
+        Conformément au Règlement Général sur la Protection des Données (RGPD), tu disposes d'un
+        droit d'accès, de rectification, d'effacement, de limitation et de portabilité de tes
+        données.
+      </p>
+      <ul>
+        <li>
+          <strong>Suppression immédiate et autonome</strong> : bouton « Supprimer mon compte »
+          disponible sur ta <a href="../profil/index.html">page profil</a>, qui efface
+          définitivement ton compte, ton pseudonyme, ta photo, tes scores et tes défis.
+        </li>
+        <li>
+          <strong>Autres demandes</strong> (accès, rectification, export) : écris à
+          <a href="mailto:snare1tp@gmail.com">snare1tp@gmail.com</a>.
+        </li>
+      </ul>
+
+      <h2>Sécurité</h2>
+      <p>
+        Le site est servi en HTTPS. L'authentification se fait sans mot de passe (code à usage
+        unique envoyé par email). L'accès aux données est restreint par des règles de sécurité au
+        niveau de la base de données : chacun ne peut modifier que ses propres informations.
+      </p>
+
+      <h2>Modification de cette politique</h2>
+      <p>
+        Cette politique peut évoluer. La date de dernière mise à jour est indiquée en haut de
+        cette page.
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a href="../mentions-legales/index.html">Mentions légales</a> · <a href="../confidentialite/index.html">Confidentialité</a>
+  </footer>
+</body>
+</html>

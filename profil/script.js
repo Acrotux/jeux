@@ -99,9 +99,24 @@
       statusEl.textContent = "Photo mise à jour !";
       render();
     } catch (err) {
-      statusEl.textContent = "Impossible d'envoyer cette image (formats courants uniquement, 5 Mo max).";
+      statusEl.textContent = err && err.message ? err.message : "Impossible d'envoyer cette image.";
     }
     e.target.value = "";
+  });
+
+  document.getElementById("profil-delete-account").addEventListener("click", async () => {
+    const statusEl = document.getElementById("profil-delete-status");
+    const confirmation = prompt(
+      'Cette action est irréversible et supprime tout ton compte (scores, défis, photo).\nTape SUPPRIMER pour confirmer.'
+    );
+    if (confirmation !== "SUPPRIMER") return;
+    statusEl.textContent = "Suppression en cours…";
+    try {
+      await window.JeuxAuth.deleteAccount();
+      window.location.href = "../index.html";
+    } catch (err) {
+      statusEl.textContent = "Impossible de supprimer le compte pour le moment. Réessaie plus tard.";
+    }
   });
 
   document.addEventListener("DOMContentLoaded", async () => {

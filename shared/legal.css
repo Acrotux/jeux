@@ -1,0 +1,24 @@
+.legal-article {
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+.legal-article h2 {
+  margin: 32px 0 10px;
+  font-size: 1.2rem;
+}
+
+.legal-article h2:first-child { margin-top: 0; }
+
+.legal-article p, .legal-article li { color: var(--text); }
+.legal-article ul { padding-left: 22px; }
+.legal-article li { margin-bottom: 6px; }
+
+.legal-updated {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 28px;
+}
+
+.legal-article a { color: var(--primary); text-decoration: underline; }

@@ -9,6 +9,12 @@
     return (pseudo || "?").slice(0, 2).toUpperCase();
   }
 
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
   function buildModal() {
     if (document.getElementById("auth-modal")) return;
     const overlay = document.createElement("div");
@@ -26,6 +32,10 @@
             <p class="auth-error" id="auth-email-error"></p>
             <button class="btn" type="submit">Recevoir mon code</button>
           </form>
+          <p class="auth-hint">
+            En continuant, tu acceptes notre
+            <a href="${new URL("confidentialite/index.html", siteRoot).href}" target="_blank" rel="noopener">politique de confidentialité</a>.
+          </p>
         </div>
         <div id="auth-step-code" style="display:none;">
           <h2>Vérification</h2>
@@ -97,6 +107,10 @@
       const pseudo = document.getElementById("auth-pseudo").value.trim();
       const errorEl = document.getElementById("auth-pseudo-error");
       errorEl.textContent = "";
+      if (!/^[\p{L}\p{N} _.-]{2,20}$/u.test(pseudo)) {
+        errorEl.textContent = "Pseudo invalide (2 à 20 caractères : lettres, chiffres, espace, - _ .).";
+        return;
+      }
       try {
         const available = await window.JeuxAuth.isPseudoAvailable(pseudo);
         if (!available) {
@@ -149,12 +163,12 @@
     const label = profile && profile.pseudo ? profile.pseudo : "…";
     const avatarHtml =
       profile && profile.avatar_url
-        ? `<img class="avatar" src="${profile.avatar_url}" alt="" />`
-        : `<span class="avatar">${initials(label)}</span>`;
+        ? `<img class="avatar" src="${escapeHtml(profile.avatar_url)}" alt="" />`
+        : `<span class="avatar">${escapeHtml(initials(label))}</span>`;
     container.innerHTML = `
       <a class="auth-pill" href="${new URL("profil/index.html", siteRoot).href}">
         ${avatarHtml}
-        <span>${label}</span>
+        <span>${escapeHtml(label)}</span>
       </a>`;
   }
 

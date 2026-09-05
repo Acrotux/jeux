@@ -197,7 +197,11 @@ window.JeuxAuth = (function () {
 
     async uploadAvatar(file) {
       if (!currentSession) throw new Error("Non connecté");
-      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const ALLOWED_TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
+      const MAX_BYTES = 5 * 1024 * 1024;
+      if (!ALLOWED_TYPES[file.type]) throw new Error("Format d'image non supporté (JPEG, PNG, WEBP ou GIF uniquement)");
+      if (file.size > MAX_BYTES) throw new Error("Image trop lourde (5 Mo maximum)");
+      const ext = ALLOWED_TYPES[file.type];
       const path = `${currentSession.user.id}/avatar.${ext}`;
       const { error: uploadError } = await sb.storage
         .from("avatars")
@@ -237,6 +241,15 @@ window.JeuxAuth = (function () {
         .limit(limit);
       if (error) return [];
       return data;
+    },
+
+    async deleteAccount() {
+      if (!currentSession) throw new Error("Non connecté");
+      const { data, error } = await sb.functions.invoke("delete-account");
+      if (error || (data && data.error)) throw error || new Error(data.error);
+      currentSession = null;
+      currentProfile = null;
+      notify();
     },
   };
 })();

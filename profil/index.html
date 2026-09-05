@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="../shared/auth-widget.css" />
 <link rel="stylesheet" href="style.css" />
 <script src="../shared/theme.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0" defer></script>
 <script src="../shared/supabase-config.js" defer></script>
 <script src="../shared/supabase-client.js" defer></script>
 <script src="../shared/auth-widget.js" defer></script>
@@ -65,8 +65,19 @@
         <h2>Historique des scores</h2>
         <div id="profil-history" class="profil-history"></div>
       </div>
+
+      <div class="panel profil-danger-zone">
+        <h2>Zone de danger</h2>
+        <p>Supprime définitivement ton compte, ton pseudo, ta photo, tes scores et tes défis. Action irréversible.</p>
+        <button class="btn-danger btn" id="profil-delete-account">Supprimer mon compte</button>
+        <p id="profil-delete-status" class="auth-hint"></p>
+      </div>
     </div>
   </main>
+
+  <footer class="site-footer">
+    <a href="../mentions-legales/index.html">Mentions l&eacute;gales</a> &middot; <a href="../confidentialite/index.html">Confidentialit&eacute;</a>
+  </footer>
 
   <script src="script.js"></script>
 </body>
