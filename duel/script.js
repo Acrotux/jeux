@@ -1,6 +1,13 @@
 (function () {
   const GAME_LABELS = {};
   const GAME_PATHS = {};
+  // Anciens duels lancés avant le suivi par test (identifiant de jeu global).
+  (window.GAMES || []).forEach((g) => {
+    if (g.modes && g.modes.length) {
+      GAME_LABELS[g.id] = `${g.emoji} ${g.name} (ancien suivi)`;
+      GAME_PATHS[g.id] = `../${g.path}`;
+    }
+  });
   (window.SCORE_GAMES || []).forEach((s) => {
     GAME_LABELS[s.id] = s.label;
     GAME_PATHS[s.id] = `../${s.path}`;

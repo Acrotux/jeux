@@ -1,7 +1,10 @@
 (function () {
   const GAME_LABELS = {};
   (window.GAMES || []).forEach((g) => {
-    GAME_LABELS[g.id] = `${g.emoji} ${g.name}`; // ids historiques (avant le suivi par test)
+    // Pour les jeux à plusieurs tests, l'ancien identifiant global (avant le
+    // suivi par test) doit rester distinguable des tests précis actuels.
+    const suffix = g.modes && g.modes.length ? " (ancien suivi)" : "";
+    GAME_LABELS[g.id] = `${g.emoji} ${g.name}${suffix}`;
   });
   (window.SCORE_GAMES || []).forEach((s) => {
     GAME_LABELS[s.id] = s.label; // ids par test (ex. musique_simon)
