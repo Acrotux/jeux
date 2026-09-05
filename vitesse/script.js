@@ -180,7 +180,7 @@
     saveScore(score);
   }
 
-  zoneEl.addEventListener("click", () => {
+  function handleReactionInput() {
     if (reactionState === "waiting") {
       clearTimeout(reactionTimer);
       setZone("tooearly", "Trop tôt ! Réessaie…");
@@ -193,6 +193,16 @@
       setZone("idle", `${ms} ms !`);
       setTimeout(nextReactionRound, 700);
     }
+  }
+
+  zoneEl.addEventListener("click", handleReactionInput);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    if (document.getElementById("mode-reaction").style.display === "none") return;
+    if (reactionState !== "waiting" && reactionState !== "go") return;
+    e.preventDefault();
+    handleReactionInput();
   });
 
   function nextRoundRetry() {
