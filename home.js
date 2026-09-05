@@ -64,8 +64,8 @@
     });
   });
 
-  async function loadDefisBanner() {
-    const slot = document.getElementById("defis-banner-slot");
+  async function loadDuelBanner() {
+    const slot = document.getElementById("duel-banner-slot");
     if (!slot || !window.JeuxAuth) return;
     await window.JeuxAuth.ready();
     if (!window.JeuxAuth.isConfigured() || !window.JeuxAuth.getSession()) return;
@@ -74,14 +74,14 @@
     const pending = all.filter((c) => c.status === "pending" && c.opponent_id === uid);
     if (pending.length === 0) return;
     slot.innerHTML = `
-      <div class="defis-banner">
-        ⚔️ ${pending.length} défi${pending.length > 1 ? "s" : ""} en attente de ta réponse —
-        <a href="defis/index.html">voir</a>
+      <div class="duel-banner">
+        ⚔️ ${pending.length} duel${pending.length > 1 ? "s" : ""} en attente de ta réponse —
+        <a href="duel/index.html">voir</a>
       </div>`;
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     loadLeaderboard();
-    loadDefisBanner();
+    loadDuelBanner();
   });
 })();

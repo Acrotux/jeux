@@ -18,19 +18,19 @@
     precision: "../precision/index.html",
   };
 
-  const loggedOutEl = document.getElementById("defis-logged-out");
-  const notConfiguredEl = document.getElementById("defis-not-configured");
-  const contentEl = document.getElementById("defis-content");
+  const loggedOutEl = document.getElementById("duel-logged-out");
+  const notConfiguredEl = document.getElementById("duel-not-configured");
+  const contentEl = document.getElementById("duel-content");
 
-  const searchInput = document.getElementById("defis-search-input");
-  const searchResultsEl = document.getElementById("defis-search-results");
-  const gameSelect = document.getElementById("defis-game-select");
-  const sendBtn = document.getElementById("defis-send-btn");
-  const formMessageEl = document.getElementById("defis-form-message");
+  const searchInput = document.getElementById("duel-search-input");
+  const searchResultsEl = document.getElementById("duel-search-results");
+  const gameSelect = document.getElementById("duel-game-select");
+  const sendBtn = document.getElementById("duel-send-btn");
+  const formMessageEl = document.getElementById("duel-form-message");
 
-  const receivedEl = document.getElementById("defis-received");
-  const activeEl = document.getElementById("defis-active");
-  const historyEl = document.getElementById("defis-history");
+  const receivedEl = document.getElementById("duel-received");
+  const activeEl = document.getElementById("duel-active");
+  const historyEl = document.getElementById("duel-history");
 
   let selectedOpponent = null;
   let searchTimer = null;
@@ -81,7 +81,7 @@
   });
 
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".defis-search")) searchResultsEl.classList.remove("open");
+    if (!e.target.closest(".duel-search")) searchResultsEl.classList.remove("open");
   });
 
   sendBtn.addEventListener("click", async () => {
@@ -89,13 +89,13 @@
     formMessageEl.textContent = "";
     try {
       await window.JeuxAuth.createChallenge(selectedOpponent.id, gameSelect.value);
-      formMessageEl.textContent = `Défi envoyé à ${selectedOpponent.pseudo} !`;
+      formMessageEl.textContent = `Duel envoyé à ${selectedOpponent.pseudo} !`;
       searchInput.value = "";
       selectedOpponent = null;
       sendBtn.disabled = true;
       loadChallenges();
     } catch (err) {
-      formMessageEl.textContent = "Impossible d'envoyer ce défi.";
+      formMessageEl.textContent = "Impossible d'envoyer ce duel.";
     }
   });
 
@@ -103,7 +103,7 @@
     const challengerWins = c.challenger_score > c.opponent_score;
     const opponentWins = c.opponent_score > c.challenger_score;
     return `
-      <div class="defis-score-pair">
+      <div class="duel-score-pair">
         <span class="${challengerWins ? "winner" : ""}">${escapeHtml(c.challenger_pseudo)} ${c.challenger_score ?? 0}</span>
         <span class="vs">vs</span>
         <span class="${opponentWins ? "winner" : ""}">${c.opponent_score ?? 0} ${escapeHtml(c.opponent_pseudo)}</span>
@@ -111,21 +111,21 @@
   }
 
   function deleteBtnHtml(id) {
-    return `<button class="btn-secondary btn defis-delete" data-delete="${id}" title="Supprimer" aria-label="Supprimer">🗑️</button>`;
+    return `<button class="btn-secondary btn duel-delete" data-delete="${id}" title="Supprimer" aria-label="Supprimer">🗑️</button>`;
   }
 
   function renderReceived(list) {
     if (list.length === 0) {
-      receivedEl.innerHTML = `<p class="defis-empty">Aucun défi en attente de ta réponse.</p>`;
+      receivedEl.innerHTML = `<p class="duel-empty">Aucun duel en attente de ta réponse.</p>`;
       return;
     }
     receivedEl.innerHTML = list
       .map(
         (c) => `
-        <div class="defis-card">
-          <div class="defis-info">
-            <div class="defis-game-label">${GAME_LABELS[c.game]}</div>
-            <div class="defis-sub">${escapeHtml(c.challenger_pseudo)} te défie · ${fmtDate(c.created_at)}</div>
+        <div class="duel-card">
+          <div class="duel-info">
+            <div class="duel-game-label">${GAME_LABELS[c.game]}</div>
+            <div class="duel-sub">${escapeHtml(c.challenger_pseudo)} te défie en duel · ${fmtDate(c.created_at)}</div>
           </div>
           <button class="btn" data-accept="${c.id}">Accepter</button>
           <button class="btn-secondary btn" data-decline="${c.id}">Refuser</button>
@@ -137,16 +137,16 @@
 
   function renderActive(list) {
     if (list.length === 0) {
-      activeEl.innerHTML = `<p class="defis-empty">Aucun défi en cours.</p>`;
+      activeEl.innerHTML = `<p class="duel-empty">Aucun duel en cours.</p>`;
       return;
     }
     activeEl.innerHTML = list
       .map(
         (c) => `
-        <div class="defis-card">
-          <div class="defis-info">
-            <div class="defis-game-label">${GAME_LABELS[c.game]}</div>
-            <div class="defis-sub">${escapeHtml(c.challenger_pseudo)} vs ${escapeHtml(c.opponent_pseudo)} · ${hoursLeft(c.expires_at)}h restantes</div>
+        <div class="duel-card">
+          <div class="duel-info">
+            <div class="duel-game-label">${GAME_LABELS[c.game]}</div>
+            <div class="duel-sub">${escapeHtml(c.challenger_pseudo)} vs ${escapeHtml(c.opponent_pseudo)} · ${hoursLeft(c.expires_at)}h restantes</div>
           </div>
           ${scorePairHtml(c)}
           <a class="btn" href="${GAME_PATHS[c.game]}">Jouer</a>
@@ -158,13 +158,14 @@
 
   function renderHistory(list) {
     if (list.length === 0) {
-      historyEl.innerHTML = `<p class="defis-empty">Pas encore de défi terminé.</p>`;
+      historyEl.innerHTML = `<p class="duel-empty">Pas encore de duel terminé.</p>`;
       return;
     }
     historyEl.innerHTML = list
       .map((c) => {
         let resultLabel;
-        if (c.status === "pending") resultLabel = "En attente de réponse";
+        if (c.status === "pending" && c.invited_email) resultLabel = "En attente d'inscription";
+        else if (c.status === "pending") resultLabel = "En attente de réponse";
         else if (c.status === "declined") resultLabel = "Refusé";
         else if (c.status === "cancelled") resultLabel = "Annulé";
         else {
@@ -174,10 +175,10 @@
             cs === os ? "Égalité" : `${escapeHtml(cs > os ? c.challenger_pseudo : c.opponent_pseudo)} a gagné`;
         }
         return `
-          <div class="defis-card">
-            <div class="defis-info">
-              <div class="defis-game-label">${GAME_LABELS[c.game]}</div>
-              <div class="defis-sub">${escapeHtml(c.challenger_pseudo)} vs ${escapeHtml(c.opponent_pseudo)} · ${resultLabel}</div>
+          <div class="duel-card">
+            <div class="duel-info">
+              <div class="duel-game-label">${GAME_LABELS[c.game]}</div>
+              <div class="duel-sub">${escapeHtml(c.challenger_pseudo)} vs ${escapeHtml(c.opponent_pseudo)} · ${resultLabel}</div>
             </div>
             ${c.status === "accepted" ? scorePairHtml(c) : ""}
             ${deleteBtnHtml(c.id)}
@@ -236,14 +237,60 @@
     loadChallenges();
   }
 
-  document.getElementById("defis-login-btn").addEventListener("click", () => {
+  document.getElementById("duel-login-btn").addEventListener("click", () => {
     if (window.AuthWidget) window.AuthWidget.open();
+  });
+
+  // ===== Bascule pseudo / email =====
+  const modeButtons = document.querySelectorAll(".duel-mode-btn");
+  modeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modeButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const mode = btn.dataset.mode;
+      document.getElementById("duel-mode-pseudo").style.display = mode === "pseudo" ? "flex" : "none";
+      document.getElementById("duel-mode-email").style.display = mode === "email" ? "flex" : "none";
+      formMessageEl.textContent = "";
+    });
+  });
+
+  // ===== Envoi par email =====
+  const emailInput = document.getElementById("duel-email-input");
+  const emailGameSelect = document.getElementById("duel-email-game-select");
+  const emailSendBtn = document.getElementById("duel-email-send-btn");
+
+  emailSendBtn.addEventListener("click", async () => {
+    const emails = emailInput.value
+      .split(/[,\n]/)
+      .map((e) => e.trim())
+      .filter(Boolean);
+    if (emails.length === 0) return;
+
+    formMessageEl.textContent = "Envoi en cours…";
+    emailSendBtn.disabled = true;
+
+    const results = await Promise.allSettled(
+      emails.map((email) => window.JeuxAuth.inviteDuel(email, emailGameSelect.value))
+    );
+
+    const okCount = results.filter((r) => r.status === "fulfilled").length;
+    const failCount = results.length - okCount;
+    formMessageEl.textContent =
+      failCount === 0
+        ? `Duel envoyé à ${okCount} personne${okCount > 1 ? "s" : ""} !`
+        : `${okCount} duel(s) envoyé(s), ${failCount} échec(s) (email invalide ou déjà défié ?).`;
+
+    emailSendBtn.disabled = false;
+    if (okCount > 0) {
+      emailInput.value = "";
+      loadChallenges();
+    }
   });
 
   document.addEventListener("click", async (e) => {
     const delBtn = e.target.closest("[data-delete]");
     if (!delBtn) return;
-    if (!confirm("Supprimer définitivement ce défi ?")) return;
+    if (!confirm("Supprimer définitivement ce duel ?")) return;
     await window.JeuxAuth.deleteChallenge(delBtn.dataset.delete);
     loadChallenges();
   });

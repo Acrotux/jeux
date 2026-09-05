@@ -153,7 +153,7 @@ window.JeuxAuth = (function () {
       if (error || !data) return [];
       if (data.length === 0) return [];
 
-      const ids = [...new Set(data.flatMap((c) => [c.challenger_id, c.opponent_id]))];
+      const ids = [...new Set(data.flatMap((c) => [c.challenger_id, c.opponent_id]).filter(Boolean))];
       const { data: profs } = await sb.from("profiles").select("id, pseudo").in("id", ids);
       const pseudoOf = Object.fromEntries((profs || []).map((p) => [p.id, p.pseudo]));
 
@@ -161,21 +161,32 @@ window.JeuxAuth = (function () {
         data.map(async (c) => {
           let challengerScore = null;
           let opponentScore = null;
-          if (c.status === "accepted") {
+          if (c.status === "accepted" && c.opponent_id) {
             challengerScore = await this.bestScoreBetween(c.challenger_id, c.game, c.responded_at, c.expires_at);
             opponentScore = await this.bestScoreBetween(c.opponent_id, c.game, c.responded_at, c.expires_at);
           }
+          const opponentPseudo = c.opponent_id
+            ? pseudoOf[c.opponent_id] || "?"
+            : `${c.invited_email} (invité·e)`;
           return {
             ...c,
             is_mine: c.challenger_id === uid,
             challenger_pseudo: pseudoOf[c.challenger_id] || "?",
-            opponent_pseudo: pseudoOf[c.opponent_id] || "?",
+            opponent_pseudo: opponentPseudo,
             challenger_score: challengerScore,
             opponent_score: opponentScore,
           };
         })
       );
       return enriched;
+    },
+
+    async inviteDuel(email, game) {
+      if (!currentSession) throw new Error("Non connecté");
+      const { data, error } = await sb.functions.invoke("invite-duel", { body: { email, game } });
+      if (error) throw error;
+      if (data && data.error) throw new Error(data.error);
+      return data;
     },
 
     async respondChallenge(id, accept) {

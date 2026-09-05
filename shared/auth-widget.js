@@ -174,11 +174,25 @@
 
   window.AuthWidget = { open: openModal, close: closeModal };
 
+  let pseudoPromptShown = false;
+  function maybePromptPseudo() {
+    if (pseudoPromptShown) return;
+    const session = window.JeuxAuth.getSession();
+    const profile = window.JeuxAuth.getProfile();
+    if (session && (!profile || !profile.pseudo)) {
+      pseudoPromptShown = true;
+      buildModal();
+      showStep("pseudo");
+      document.getElementById("auth-modal").classList.add("open");
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", async () => {
     if (!window.JeuxAuth) return;
     renderPill();
     await window.JeuxAuth.ready();
     renderPill();
+    maybePromptPseudo();
     window.JeuxAuth.onChange(renderPill);
   });
 })();

@@ -107,7 +107,7 @@
   document.getElementById("profil-delete-account").addEventListener("click", async () => {
     const statusEl = document.getElementById("profil-delete-status");
     const confirmation = prompt(
-      'Cette action est irréversible et supprime tout ton compte (scores, défis, photo).\nTape SUPPRIMER pour confirmer.'
+      'Cette action est irréversible et supprime tout ton compte (scores, duels, photo).\nTape SUPPRIMER pour confirmer.'
     );
     if (confirmation !== "SUPPRIMER") return;
     statusEl.textContent = "Suppression en cours…";

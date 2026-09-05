@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Duels — Jeux</title>
+<meta name="theme-color" content="#4f6df5" />
+<link rel="manifest" href="../manifest.json" />
+<link rel="icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../shared/style.css" />
+<link rel="stylesheet" href="../shared/auth-widget.css" />
+<link rel="stylesheet" href="../profil/style.css" />
+<link rel="stylesheet" href="style.css" />
+<script src="../shared/theme.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0" defer></script>
+<script src="../shared/supabase-config.js" defer></script>
+<script src="../shared/supabase-client.js" defer></script>
+<script src="../shared/auth-widget.js" defer></script>
+<script src="../shared/pwa.js" defer></script>
+<script src="../shared/version-badge.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← Jeux</a>
+    <div class="brand"><span class="logo">⚔️</span> Duels</div>
+    <div class="header-actions">
+      <div id="auth-widget"></div>
+      <button id="theme-toggle" class="icon-btn" aria-label="Changer de thème">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="duel-logged-out" class="panel profil-cta" style="display:none;">
+      <div class="emoji">🔐</div>
+      <h2>Connecte-toi pour lancer des duels</h2>
+      <p>Un email suffit — pas de mot de passe à retenir.</p>
+      <button class="btn" id="duel-login-btn">Se connecter</button>
+    </div>
+
+    <div id="duel-not-configured" class="panel profil-cta" style="display:none;">
+      <div class="emoji">🚧</div>
+      <h2>Duels bientôt disponibles</h2>
+    </div>
+
+    <div id="duel-content" style="display:none;">
+      <section class="panel duel-new">
+        <h2>Lancer un duel</h2>
+        <div class="btn-row" style="margin-bottom: 14px;">
+          <button class="btn-secondary btn duel-mode-btn active" data-mode="pseudo">Joueur inscrit</button>
+          <button class="btn-secondary btn duel-mode-btn" data-mode="email">Par email</button>
+        </div>
+
+        <div id="duel-mode-pseudo" class="duel-form">
+          <div class="duel-search">
+            <input type="text" id="duel-search-input" placeholder="Pseudo de ton adversaire" autocomplete="off" />
+            <div id="duel-search-results" class="duel-search-results"></div>
+          </div>
+          <select id="duel-game-select">
+            <option value="sudoku">🔢 Sudoku</option>
+            <option value="pendu">🪢 Pendu</option>
+            <option value="memory">🧠 Memory</option>
+            <option value="mastermind">🎯 Mastermind</option>
+            <option value="musique">🎵 Musique</option>
+            <option value="vitesse">⚡ Vitesse</option>
+            <option value="precision">🎯 Précision</option>
+          </select>
+          <button class="btn" id="duel-send-btn" disabled>Envoyer le duel</button>
+        </div>
+
+        <div id="duel-mode-email" class="duel-form" style="display:none;">
+          <textarea id="duel-email-input" rows="2" placeholder="Une ou plusieurs adresses email, séparées par des virgules"></textarea>
+          <select id="duel-email-game-select">
+            <option value="sudoku">🔢 Sudoku</option>
+            <option value="pendu">🪢 Pendu</option>
+            <option value="memory">🧠 Memory</option>
+            <option value="mastermind">🎯 Mastermind</option>
+            <option value="musique">🎵 Musique</option>
+            <option value="vitesse">⚡ Vitesse</option>
+            <option value="precision">🎯 Précision</option>
+          </select>
+          <button class="btn" id="duel-email-send-btn">Inviter en duel</button>
+          <p class="auth-hint">Si la personne n'a pas encore de compte, elle en recevra un pour s'inscrire et relever le duel.</p>
+        </div>
+
+        <p id="duel-form-message" class="auth-hint"></p>
+      </section>
+
+      <section>
+        <h2 class="duel-section-title">📩 Duels reçus</h2>
+        <div id="duel-received" class="duel-list"></div>
+      </section>
+
+      <section>
+        <h2 class="duel-section-title">⚔️ Duels en cours</h2>
+        <div id="duel-active" class="duel-list"></div>
+      </section>
+
+      <section>
+        <h2 class="duel-section-title">📜 Historique</h2>
+        <div id="duel-history" class="duel-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a href="../mentions-legales/index.html">Mentions l&eacute;gales</a> &middot; <a href="../confidentialite/index.html">Confidentialit&eacute;</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

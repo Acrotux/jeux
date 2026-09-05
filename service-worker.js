@@ -1,4 +1,4 @@
-const CACHE_NAME = "jeux-cache-v17";
+const CACHE_NAME = "jeux-cache-v18";
 
 const PRECACHE_URLS = [
   "index.html",
@@ -40,9 +40,9 @@ const PRECACHE_URLS = [
   "profil/index.html",
   "profil/style.css",
   "profil/script.js",
-  "defis/index.html",
-  "defis/style.css",
-  "defis/script.js",
+  "duel/index.html",
+  "duel/style.css",
+  "duel/script.js",
   "icons/icon-192.png",
   "icons/icon-512.png",
 ];

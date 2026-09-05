@@ -73,7 +73,7 @@
   color: var(--accent);
 }
 
-.defis-banner {
+.duel-banner {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -86,7 +86,7 @@
   font-weight: 600;
 }
 
-.defis-banner a { color: var(--primary); text-decoration: underline; }
+.duel-banner a { color: var(--primary); text-decoration: underline; }
 
 .lb-empty {
   padding: 18px;
