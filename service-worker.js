@@ -1,4 +1,4 @@
-const CACHE_NAME = "jeux-cache-v18";
+const CACHE_NAME = "jeux-cache-v19";
 
 const PRECACHE_URLS = [
   "index.html",
@@ -14,8 +14,15 @@ const PRECACHE_URLS = [
   "shared/version-badge.js",
   "shared/game-leaderboard.js",
   "shared/legal.css",
+  "shared/games-data.js",
   "mentions-legales/index.html",
   "confidentialite/index.html",
+  "jeux/index.html",
+  "jeux/style.css",
+  "jeux/script.js",
+  "classements/index.html",
+  "classements/style.css",
+  "classements/script.js",
   "sudoku/index.html",
   "sudoku/style.css",
   "sudoku/script.js",

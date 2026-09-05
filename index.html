@@ -23,16 +23,23 @@
 <script src="shared/auth-widget.js" defer></script>
 <script src="shared/pwa.js" defer></script>
 <script src="shared/version-badge.js" defer></script>
+<script src="shared/games-data.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <div class="brand"><span class="logo">🎮</span> Jeux</div>
     <div class="header-actions">
-      <a class="back-link" href="duel/index.html">⚔️ Duels</a>
       <div id="auth-widget"></div>
       <button id="theme-toggle" class="icon-btn" aria-label="Changer de thème">🌙</button>
     </div>
   </header>
+
+  <nav class="site-nav">
+    <a class="site-nav-link active" href="index.html">🏠 Accueil</a>
+    <a class="site-nav-link" href="jeux/index.html">🕹️ Jeux</a>
+    <a class="site-nav-link" href="classements/index.html">🏆 Classements</a>
+    <a class="site-nav-link" href="duel/index.html">⚔️ Duels</a>
+  </nav>
 
   <main>
     <div class="page-title">
@@ -42,103 +49,19 @@
 
     <div id="duel-banner-slot"></div>
 
-    <div class="game-grid">
-      <a class="game-card" href="sudoku/index.html">
-        <div class="emoji">🔢</div>
-        <h2>Sudoku</h2>
-        <p>Remplis la grille 9×9 sans répéter aucun chiffre sur une ligne, une colonne ou un bloc.</p>
-        <div class="tag-row">
-          <span class="tag">Logique</span>
-          <span class="tag">3 niveaux</span>
-        </div>
-      </a>
-
-      <a class="game-card" href="pendu/index.html">
-        <div class="emoji">🪢</div>
-        <h2>Pendu</h2>
-        <p>Devine le mot mystère lettre par lettre avant que le dessin ne soit terminé.</p>
-        <div class="tag-row">
-          <span class="tag">Vocabulaire</span>
-          <span class="tag">Catégories</span>
-        </div>
-      </a>
-
-      <a class="game-card" href="memory/index.html">
-        <div class="emoji">🧠</div>
-        <h2>Memory</h2>
-        <p>Retrouve toutes les paires de cartes en un minimum de coups et le plus vite possible.</p>
-        <div class="tag-row">
-          <span class="tag">Mémoire</span>
-          <span class="tag">4 tailles</span>
-        </div>
-      </a>
-
-      <a class="game-card" href="mastermind/index.html">
-        <div class="emoji">🎯</div>
-        <h2>Mastermind</h2>
-        <p>Devine la combinaison secrète grâce aux indices de couleurs à chaque essai.</p>
-        <div class="tag-row">
-          <span class="tag">Logique</span>
-          <span class="tag">3 niveaux</span>
-        </div>
-      </a>
-
-      <a class="game-card" href="musique/index.html">
-        <div class="emoji">🎵</div>
-        <h2>Musique</h2>
-        <p>Reproduis une suite de sons ou reconnais la note jouée, sans aucun fichier audio.</p>
-        <div class="tag-row">
-          <span class="tag">Oreille</span>
-          <span class="tag">2 modes</span>
-        </div>
-      </a>
-
-      <a class="game-card" href="vitesse/index.html">
-        <div class="emoji">⚡</div>
-        <h2>Vitesse</h2>
-        <p>Vitesse de frappe au clavier ou temps de réaction au clic — deux façons de tester tes réflexes.</p>
-        <div class="tag-row">
-          <span class="tag">Réflexes</span>
-          <span class="tag">2 modes</span>
-        </div>
-      </a>
-
-      <a class="game-card" href="precision/index.html">
-        <div class="emoji">🎯</div>
-        <h2>Précision</h2>
-        <p>Vise le centre d'une cible ou stoppe une barre au bon moment — deux tests de précision.</p>
-        <div class="tag-row">
-          <span class="tag tag-new">Nouveau</span>
-          <span class="tag">Adresse</span>
-          <span class="tag">2 modes</span>
-        </div>
-      </a>
-    </div>
-
-    <section class="leaderboard-section">
-      <h2>🏆 Meilleurs joueurs</h2>
-      <div class="lb-tabs" id="lb-period-tabs">
-        <button class="lb-tab active" data-period="day">Jour</button>
-        <button class="lb-tab" data-period="week">Semaine</button>
-        <button class="lb-tab" data-period="month">Mois</button>
-        <button class="lb-tab" data-period="quarter">Trimestre</button>
-        <button class="lb-tab" data-period="year">Année</button>
-        <button class="lb-tab" data-period="all">Total</button>
-      </div>
-      <div class="lb-tabs" id="lb-tabs">
-        <button class="lb-tab active" data-game="">Tous jeux</button>
-        <button class="lb-tab" data-game="sudoku">Sudoku</button>
-        <button class="lb-tab" data-game="pendu">Pendu</button>
-        <button class="lb-tab" data-game="memory">Memory</button>
-        <button class="lb-tab" data-game="mastermind">Mastermind</button>
-        <button class="lb-tab" data-game="musique">Musique</button>
-        <button class="lb-tab" data-game="vitesse">Vitesse</button>
-        <button class="lb-tab" data-game="precision">Précision</button>
-      </div>
-      <ol id="lb-list" class="lb-list">
-        <li class="lb-empty">Chargement…</li>
-      </ol>
+    <section class="home-section">
+      <h2>🆕 Derniers jeux ajoutés</h2>
+      <div class="game-grid" id="recent-added"></div>
     </section>
+
+    <section class="home-section">
+      <h2>🔄 Dernières mises à jour</h2>
+      <div class="game-grid" id="recent-updated"></div>
+    </section>
+
+    <div class="btn-row" style="margin-top: 8px;">
+      <a class="btn" href="jeux/index.html">Voir tous les jeux →</a>
+    </div>
   </main>
 
   <footer class="site-footer">
