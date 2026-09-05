@@ -55,6 +55,10 @@ window.GAMES = [
     tags: ["2 modes"],
     addedAt: "2026-09-04T20:05:00Z",
     updatedAt: "2026-09-05T04:45:34Z",
+    modes: [
+      { id: "simon", name: "Suite de sons" },
+      { id: "notes", name: "Reconnaissance de notes" },
+    ],
   },
   {
     id: "vitesse",
@@ -66,6 +70,10 @@ window.GAMES = [
     tags: ["2 modes"],
     addedAt: "2026-09-04T20:45:00Z",
     updatedAt: "2026-09-05T04:58:47Z",
+    modes: [
+      { id: "frappe", name: "Frappe" },
+      { id: "reaction", name: "Réactivité" },
+    ],
   },
   {
     id: "precision",
@@ -77,5 +85,9 @@ window.GAMES = [
     tags: ["2 modes"],
     addedAt: "2026-09-04T21:00:00Z",
     updatedAt: "2026-09-05T05:19:47Z",
+    modes: [
+      { id: "visee", name: "Visée" },
+      { id: "barre", name: "Barre précise" },
+    ],
   },
 ];

@@ -228,4 +228,11 @@
     if (activeMode === "simon") startSimon();
     else startNotes();
   });
+
+  // Arrivée directe sur un mode précis depuis le catalogue (?mode=simon|notes)
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  if (urlMode) {
+    const target = document.querySelector(`.mode-btn[data-mode="${urlMode}"]`);
+    if (target) target.click();
+  }
 })();

@@ -238,4 +238,11 @@
     if (activeMode === "frappe") startFrappe();
     else startReaction();
   });
+
+  // Arrivée directe sur un mode précis depuis le catalogue (?mode=frappe|reaction)
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  if (urlMode) {
+    const target = document.querySelector(`.mode-btn[data-mode="${urlMode}"]`);
+    if (target) target.click();
+  }
 })();

@@ -231,4 +231,11 @@
     if (activeMode === "visee") startVisee();
     else startBarre();
   });
+
+  // Arrivée directe sur un mode précis depuis le catalogue (?mode=visee|barre)
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  if (urlMode) {
+    const target = document.querySelector(`.mode-btn[data-mode="${urlMode}"]`);
+    if (target) target.click();
+  }
 })();
