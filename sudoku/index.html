@@ -16,6 +16,7 @@
 <script src="../shared/supabase-config.js" defer></script>
 <script src="../shared/supabase-client.js" defer></script>
 <script src="../shared/auth-widget.js" defer></script>
+<script src="../shared/game-leaderboard.js" defer></script>
 <script src="../shared/pwa.js" defer></script>
 <script src="../shared/version-badge.js" defer></script>
 </head>
@@ -34,6 +35,8 @@
       <h1>Sudoku</h1>
       <p>Remplis chaque ligne, colonne et bloc de 3×3 avec les chiffres 1 à 9.</p>
     </div>
+
+    <div id="mini-leaderboard" class="mini-leaderboard" data-game="sudoku"></div>
 
     <div class="btn-row" style="margin-bottom: 16px;">
       <button class="btn-secondary btn diff-btn" data-diff="facile">Facile</button>

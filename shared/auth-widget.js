@@ -147,9 +147,13 @@
     }
 
     const label = profile && profile.pseudo ? profile.pseudo : "…";
+    const avatarHtml =
+      profile && profile.avatar_url
+        ? `<img class="avatar" src="${profile.avatar_url}" alt="" />`
+        : `<span class="avatar">${initials(label)}</span>`;
     container.innerHTML = `
       <a class="auth-pill" href="${new URL("profil/index.html", siteRoot).href}">
-        <span class="avatar">${initials(label)}</span>
+        ${avatarHtml}
         <span>${label}</span>
       </a>`;
   }

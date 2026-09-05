@@ -20,7 +20,7 @@ window.JeuxAuth = (function () {
     }
     const { data } = await sb
       .from("profiles")
-      .select("id, pseudo")
+      .select("id, pseudo, avatar_url")
       .eq("id", currentSession.user.id)
       .maybeSingle();
     currentProfile = data || null;
@@ -188,6 +188,34 @@ window.JeuxAuth = (function () {
     async cancelChallenge(id) {
       const { error } = await sb.from("challenges").update({ status: "cancelled" }).eq("id", id);
       if (error) throw error;
+    },
+
+    async deleteChallenge(id) {
+      const { error } = await sb.from("challenges").delete().eq("id", id);
+      if (error) throw error;
+    },
+
+    async uploadAvatar(file) {
+      if (!currentSession) throw new Error("Non connecté");
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const path = `${currentSession.user.id}/avatar.${ext}`;
+      const { error: uploadError } = await sb.storage
+        .from("avatars")
+        .upload(path, file, { upsert: true, cacheControl: "3600" });
+      if (uploadError) throw uploadError;
+
+      const { data: pub } = sb.storage.from("avatars").getPublicUrl(path);
+      const avatarUrl = `${pub.publicUrl}?v=${Date.now()}`;
+
+      const { error: updateError } = await sb
+        .from("profiles")
+        .update({ avatar_url: avatarUrl })
+        .eq("id", currentSession.user.id);
+      if (updateError) throw updateError;
+
+      await refreshProfile();
+      notify();
+      return avatarUrl;
     },
 
     async bestScoreBetween(userId, game, fromISO, toISO) {

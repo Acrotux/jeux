@@ -101,6 +101,10 @@
       </div>`;
   }
 
+  function deleteBtnHtml(id) {
+    return `<button class="btn-secondary btn defis-delete" data-delete="${id}" title="Supprimer" aria-label="Supprimer">🗑️</button>`;
+  }
+
   function renderReceived(list) {
     if (list.length === 0) {
       receivedEl.innerHTML = `<p class="defis-empty">Aucun défi en attente de ta réponse.</p>`;
@@ -116,6 +120,7 @@
           </div>
           <button class="btn" data-accept="${c.id}">Accepter</button>
           <button class="btn-secondary btn" data-decline="${c.id}">Refuser</button>
+          ${deleteBtnHtml(c.id)}
         </div>`
       )
       .join("");
@@ -136,6 +141,7 @@
           </div>
           ${scorePairHtml(c)}
           <a class="btn" href="${GAME_PATHS[c.game]}">Jouer</a>
+          ${deleteBtnHtml(c.id)}
         </div>`
       )
       .join("");
@@ -149,7 +155,8 @@
     historyEl.innerHTML = list
       .map((c) => {
         let resultLabel;
-        if (c.status === "declined") resultLabel = "Refusé";
+        if (c.status === "pending") resultLabel = "En attente de réponse";
+        else if (c.status === "declined") resultLabel = "Refusé";
         else if (c.status === "cancelled") resultLabel = "Annulé";
         else {
           const cs = c.challenger_score ?? 0;
@@ -163,6 +170,7 @@
               <div class="defis-sub">${c.challenger_pseudo} vs ${c.opponent_pseudo} · ${resultLabel}</div>
             </div>
             ${c.status === "accepted" ? scorePairHtml(c) : ""}
+            ${deleteBtnHtml(c.id)}
           </div>`;
       })
       .join("");
@@ -220,6 +228,14 @@
 
   document.getElementById("defis-login-btn").addEventListener("click", () => {
     if (window.AuthWidget) window.AuthWidget.open();
+  });
+
+  document.addEventListener("click", async (e) => {
+    const delBtn = e.target.closest("[data-delete]");
+    if (!delBtn) return;
+    if (!confirm("Supprimer définitivement ce défi ?")) return;
+    await window.JeuxAuth.deleteChallenge(delBtn.dataset.delete);
+    loadChallenges();
   });
 
   document.addEventListener("DOMContentLoaded", async () => {

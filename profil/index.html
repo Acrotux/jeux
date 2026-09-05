@@ -46,10 +46,15 @@
 
     <div id="profil-logged-in" style="display:none;">
       <div class="panel profil-header">
-        <div class="profil-avatar" id="profil-avatar">?</div>
+        <div class="profil-avatar-wrap">
+          <div class="profil-avatar" id="profil-avatar">?</div>
+          <button class="profil-avatar-edit" id="profil-avatar-btn" title="Changer la photo" aria-label="Changer la photo">📷</button>
+          <input type="file" id="profil-avatar-input" accept="image/*" hidden />
+        </div>
         <div>
           <h1 id="profil-pseudo">—</h1>
           <p class="profil-email" id="profil-email"></p>
+          <p id="profil-avatar-status" class="auth-hint"></p>
         </div>
         <button class="btn-secondary btn" id="profil-logout">Se déconnecter</button>
       </div>

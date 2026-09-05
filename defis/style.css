@@ -90,3 +90,8 @@
 .defis-score-pair .winner { color: var(--success); }
 
 .defis-card .btn, .defis-card .btn-secondary { padding: 8px 14px; font-size: 0.85rem; }
+
+.defis-delete {
+  padding: 8px 10px !important;
+  flex-shrink: 0;
+}

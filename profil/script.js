@@ -43,7 +43,11 @@
 
     const label = profile && profile.pseudo ? profile.pseudo : "…";
     pseudoEl.textContent = label;
-    avatarEl.textContent = label.slice(0, 2).toUpperCase();
+    if (profile && profile.avatar_url) {
+      avatarEl.innerHTML = `<img src="${profile.avatar_url}" alt="" />`;
+    } else {
+      avatarEl.textContent = label.slice(0, 2).toUpperCase();
+    }
     emailEl.textContent = session.user.email || "";
 
     const scores = await window.JeuxAuth.myScores(50);
@@ -79,6 +83,25 @@
   document.getElementById("profil-logout").addEventListener("click", async () => {
     await window.JeuxAuth.signOut();
     render();
+  });
+
+  document.getElementById("profil-avatar-btn").addEventListener("click", () => {
+    document.getElementById("profil-avatar-input").click();
+  });
+
+  document.getElementById("profil-avatar-input").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const statusEl = document.getElementById("profil-avatar-status");
+    statusEl.textContent = "Envoi en cours…";
+    try {
+      await window.JeuxAuth.uploadAvatar(file);
+      statusEl.textContent = "Photo mise à jour !";
+      render();
+    } catch (err) {
+      statusEl.textContent = "Impossible d'envoyer cette image (formats courants uniquement, 5 Mo max).";
+    }
+    e.target.value = "";
   });
 
   document.addEventListener("DOMContentLoaded", async () => {
