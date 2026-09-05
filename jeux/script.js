@@ -13,12 +13,12 @@
       if (g.modes && g.modes.length) {
         g.modes.forEach((m) => {
           list.push({
-            name: `${g.name} — ${m.name}`,
+            name: m.name,
             emoji: g.emoji,
             path: `${g.path}?mode=${m.id}`,
             desc: g.desc,
             styles: g.styles,
-            tags: [],
+            tags: [g.name],
           });
         });
       } else {
