@@ -38,22 +38,29 @@
 
     <div id="mini-leaderboard" class="mini-leaderboard" data-game="memory"></div>
 
-    <div class="btn-row" style="margin-bottom: 16px;">
-      <button class="btn-secondary btn size-btn" data-size="4">4×4</button>
-      <button class="btn-secondary btn size-btn" data-size="5">5×4</button>
-      <button class="btn-secondary btn size-btn" data-size="6">6×5</button>
+    <div id="setup-screen" class="panel setup-screen">
+      <h2>Choisis la taille de la grille</h2>
+      <div class="btn-row">
+        <button class="btn size-btn" data-size="4">4×4</button>
+        <button class="btn size-btn" data-size="5">5×4</button>
+        <button class="btn size-btn" data-size="6">6×5</button>
+      </div>
     </div>
 
-    <div class="stats-row">
-      <div class="stat"><div class="value" id="timer">00:00</div><div class="label">Temps</div></div>
-      <div class="stat"><div class="value" id="moves">0</div><div class="label">Coups</div></div>
-      <div class="stat"><div class="value" id="pairs">0/0</div><div class="label">Paires</div></div>
-    </div>
+    <div id="game-content" style="display:none;">
+      <p><a href="#" id="change-setup">← Changer de taille</a></p>
 
-    <div id="memory-grid" class="memory-grid"></div>
+      <div class="stats-row">
+        <div class="stat"><div class="value" id="timer">00:00</div><div class="label">Temps</div></div>
+        <div class="stat"><div class="value" id="moves">0</div><div class="label">Coups</div></div>
+        <div class="stat"><div class="value" id="pairs">0/0</div><div class="label">Paires</div></div>
+      </div>
 
-    <div class="btn-row" style="margin-top: 20px;">
-      <button class="btn" id="new-game">Nouvelle partie</button>
+      <div id="memory-grid" class="memory-grid"></div>
+
+      <div class="btn-row" style="margin-top: 20px;">
+        <button class="btn" id="new-game">Nouvelle partie</button>
+      </div>
     </div>
   </main>
 

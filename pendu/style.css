@@ -1,9 +1,3 @@
-.cat-btn.active {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
 .pendu-wrap {
   display: flex;
   justify-content: center;

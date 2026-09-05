@@ -258,17 +258,26 @@
     resetTimer();
   }
 
-  // ---- Événements ----
-  document.querySelectorAll(".diff-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".diff-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      difficulty = btn.dataset.diff;
-      newGame();
-    });
-  });
-  document.querySelector(`.diff-btn[data-diff="${difficulty}"]`).classList.add("active");
+  // ---- Écran de choix de difficulté (avant de commencer) ----
+  function startWithDifficulty(diff) {
+    difficulty = diff;
+    document.getElementById("setup-screen").style.display = "none";
+    document.getElementById("game-content").style.display = "block";
+    newGame();
+  }
 
+  document.querySelectorAll(".diff-btn").forEach((btn) => {
+    btn.addEventListener("click", () => startWithDifficulty(btn.dataset.diff));
+  });
+
+  document.getElementById("change-setup").addEventListener("click", (e) => {
+    e.preventDefault();
+    resetTimer();
+    document.getElementById("game-content").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  });
+
+  // ---- Événements ----
   document.getElementById("numpad").addEventListener("click", (e) => {
     const btn = e.target.closest(".num-btn");
     if (!btn) return;
@@ -295,5 +304,9 @@
   document.getElementById("check-game").addEventListener("click", checkGridManually);
   document.getElementById("win-replay").addEventListener("click", newGame);
 
-  newGame();
+  // Arrivée directe sur une difficulté précise (?difficulty=facile|moyen|difficile)
+  const urlDifficulty = new URLSearchParams(location.search).get("difficulty");
+  if (urlDifficulty && DIFFICULTIES[urlDifficulty]) {
+    startWithDifficulty(urlDifficulty);
+  }
 })();

@@ -1,9 +1,3 @@
-.diff-btn.active {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
 .mm-current {
   display: flex;
   justify-content: center;

@@ -187,15 +187,22 @@
     renderHangman();
   }
 
+  function startWithCategory(cat) {
+    category = cat;
+    document.getElementById("setup-screen").style.display = "none";
+    document.getElementById("game-content").style.display = "block";
+    newGame();
+  }
+
   document.querySelectorAll(".cat-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".cat-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      category = btn.dataset.cat;
-      newGame();
-    });
+    btn.addEventListener("click", () => startWithCategory(btn.dataset.cat));
   });
-  document.querySelector(`.cat-btn[data-cat="${category}"]`).classList.add("active");
+
+  document.getElementById("change-setup").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("game-content").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  });
 
   document.addEventListener("keydown", (e) => {
     const letter = e.key.toUpperCase();
@@ -205,5 +212,9 @@
   document.getElementById("new-game").addEventListener("click", newGame);
   document.getElementById("end-replay").addEventListener("click", newGame);
 
-  newGame();
+  // Arrivée directe sur une catégorie précise (?categorie=animaux|nature|metiers|pays|melange)
+  const urlCategory = new URLSearchParams(location.search).get("categorie");
+  if (urlCategory && CATEGORY_LABELS[urlCategory]) {
+    startWithCategory(urlCategory);
+  }
 })();

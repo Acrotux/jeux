@@ -38,41 +38,48 @@
 
     <div id="mini-leaderboard" class="mini-leaderboard" data-game="pendu"></div>
 
-    <div class="btn-row" id="category-row" style="margin-bottom: 16px;">
-      <button class="btn-secondary btn cat-btn" data-cat="animaux">Animaux</button>
-      <button class="btn-secondary btn cat-btn" data-cat="nature">Nature &amp; aliments</button>
-      <button class="btn-secondary btn cat-btn" data-cat="metiers">Métiers</button>
-      <button class="btn-secondary btn cat-btn" data-cat="pays">Pays</button>
-      <button class="btn-secondary btn cat-btn" data-cat="melange">Mélange</button>
+    <div id="setup-screen" class="panel setup-screen">
+      <h2>Choisis une catégorie</h2>
+      <div class="btn-row" id="category-row">
+        <button class="btn cat-btn" data-cat="animaux">Animaux</button>
+        <button class="btn cat-btn" data-cat="nature">Nature &amp; aliments</button>
+        <button class="btn cat-btn" data-cat="metiers">Métiers</button>
+        <button class="btn cat-btn" data-cat="pays">Pays</button>
+        <button class="btn cat-btn" data-cat="melange">Mélange</button>
+      </div>
     </div>
 
-    <div class="stats-row">
-      <div class="stat"><div class="value" id="attempts-left">6</div><div class="label">Essais restants</div></div>
-      <div class="stat"><div class="value" id="category-label">—</div><div class="label">Catégorie</div></div>
-    </div>
+    <div id="game-content" style="display:none;">
+      <p><a href="#" id="change-setup">← Changer de catégorie</a></p>
 
-    <div class="pendu-wrap">
-      <svg id="hangman-svg" viewBox="0 0 200 220" width="220" height="240">
-        <line x1="10" y1="210" x2="140" y2="210" stroke-width="6" stroke-linecap="round" class="part base" />
-        <line x1="40" y1="210" x2="40" y2="15" stroke-width="6" stroke-linecap="round" class="part pole" />
-        <line x1="40" y1="15" x2="130" y2="15" stroke-width="6" stroke-linecap="round" class="part beam" />
-        <line x1="130" y1="15" x2="130" y2="45" stroke-width="4" stroke-linecap="round" class="part rope" />
-        <circle cx="130" cy="65" r="20" stroke-width="4" fill="none" class="part head" />
-        <line x1="130" y1="85" x2="130" y2="140" stroke-width="4" stroke-linecap="round" class="part body" />
-        <line x1="130" y1="100" x2="105" y2="120" stroke-width="4" stroke-linecap="round" class="part arm-left" />
-        <line x1="130" y1="100" x2="155" y2="120" stroke-width="4" stroke-linecap="round" class="part arm-right" />
-        <line x1="130" y1="140" x2="110" y2="180" stroke-width="4" stroke-linecap="round" class="part leg-left" />
-        <line x1="130" y1="140" x2="150" y2="180" stroke-width="4" stroke-linecap="round" class="part leg-right" />
-      </svg>
-    </div>
+      <div class="stats-row">
+        <div class="stat"><div class="value" id="attempts-left">6</div><div class="label">Essais restants</div></div>
+        <div class="stat"><div class="value" id="category-label">—</div><div class="label">Catégorie</div></div>
+      </div>
 
-    <div id="word-display" class="word-display"></div>
-    <p id="message" class="message"></p>
+      <div class="pendu-wrap">
+        <svg id="hangman-svg" viewBox="0 0 200 220" width="220" height="240">
+          <line x1="10" y1="210" x2="140" y2="210" stroke-width="6" stroke-linecap="round" class="part base" />
+          <line x1="40" y1="210" x2="40" y2="15" stroke-width="6" stroke-linecap="round" class="part pole" />
+          <line x1="40" y1="15" x2="130" y2="15" stroke-width="6" stroke-linecap="round" class="part beam" />
+          <line x1="130" y1="15" x2="130" y2="45" stroke-width="4" stroke-linecap="round" class="part rope" />
+          <circle cx="130" cy="65" r="20" stroke-width="4" fill="none" class="part head" />
+          <line x1="130" y1="85" x2="130" y2="140" stroke-width="4" stroke-linecap="round" class="part body" />
+          <line x1="130" y1="100" x2="105" y2="120" stroke-width="4" stroke-linecap="round" class="part arm-left" />
+          <line x1="130" y1="100" x2="155" y2="120" stroke-width="4" stroke-linecap="round" class="part arm-right" />
+          <line x1="130" y1="140" x2="110" y2="180" stroke-width="4" stroke-linecap="round" class="part leg-left" />
+          <line x1="130" y1="140" x2="150" y2="180" stroke-width="4" stroke-linecap="round" class="part leg-right" />
+        </svg>
+      </div>
 
-    <div id="keyboard" class="keyboard"></div>
+      <div id="word-display" class="word-display"></div>
+      <p id="message" class="message"></p>
 
-    <div class="btn-row" style="margin-top: 20px;">
-      <button class="btn" id="new-game">Nouveau mot</button>
+      <div id="keyboard" class="keyboard"></div>
+
+      <div class="btn-row" style="margin-top: 20px;">
+        <button class="btn" id="new-game">Nouveau mot</button>
+      </div>
     </div>
   </main>
 

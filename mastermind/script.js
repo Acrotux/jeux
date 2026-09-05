@@ -168,15 +168,22 @@
     renderHistory();
   }
 
+  function startWithDifficulty(diff) {
+    difficulty = diff;
+    document.getElementById("setup-screen").style.display = "none";
+    document.getElementById("game-content").style.display = "block";
+    newGame();
+  }
+
   document.querySelectorAll(".diff-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".diff-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      difficulty = btn.dataset.diff;
-      newGame();
-    });
+    btn.addEventListener("click", () => startWithDifficulty(btn.dataset.diff));
   });
-  document.querySelector(`.diff-btn[data-diff="${difficulty}"]`).classList.add("active");
+
+  document.getElementById("change-setup").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("game-content").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  });
 
   document.getElementById("mm-clear").addEventListener("click", () => {
     if (over) return;
@@ -187,5 +194,9 @@
   document.getElementById("new-game").addEventListener("click", newGame);
   document.getElementById("end-replay").addEventListener("click", newGame);
 
-  newGame();
+  // Arrivée directe sur une difficulté précise (?difficulty=facile|moyen|difficile)
+  const urlDifficulty = new URLSearchParams(location.search).get("difficulty");
+  if (urlDifficulty && DIFFICULTIES[urlDifficulty]) {
+    startWithDifficulty(urlDifficulty);
+  }
 })();

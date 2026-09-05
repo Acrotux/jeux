@@ -38,29 +38,36 @@
 
     <div id="mini-leaderboard" class="mini-leaderboard" data-game="mastermind"></div>
 
-    <div class="btn-row" style="margin-bottom: 16px;">
-      <button class="btn-secondary btn diff-btn" data-diff="facile">Facile</button>
-      <button class="btn-secondary btn diff-btn" data-diff="moyen">Moyen</button>
-      <button class="btn-secondary btn diff-btn" data-diff="difficile">Difficile</button>
+    <div id="setup-screen" class="panel setup-screen">
+      <h2>Choisis ta difficulté</h2>
+      <div class="btn-row">
+        <button class="btn diff-btn" data-diff="facile">Facile</button>
+        <button class="btn diff-btn" data-diff="moyen">Moyen</button>
+        <button class="btn diff-btn" data-diff="difficile">Difficile</button>
+      </div>
     </div>
 
-    <div class="stats-row">
-      <div class="stat"><div class="value" id="attempts-left">10</div><div class="label">Essais restants</div></div>
-    </div>
+    <div id="game-content" style="display:none;">
+      <p><a href="#" id="change-setup">← Changer de difficulté</a></p>
 
-    <div id="mm-current" class="mm-current panel"></div>
+      <div class="stats-row">
+        <div class="stat"><div class="value" id="attempts-left">10</div><div class="label">Essais restants</div></div>
+      </div>
 
-    <div class="mm-palette" id="mm-palette"></div>
+      <div id="mm-current" class="mm-current panel"></div>
 
-    <div class="btn-row" style="margin: 14px 0 24px;">
-      <button class="btn-secondary btn" id="mm-clear">Effacer</button>
-      <button class="btn" id="mm-submit">Valider</button>
-    </div>
+      <div class="mm-palette" id="mm-palette"></div>
 
-    <div id="mm-history" class="mm-history"></div>
+      <div class="btn-row" style="margin: 14px 0 24px;">
+        <button class="btn-secondary btn" id="mm-clear">Effacer</button>
+        <button class="btn" id="mm-submit">Valider</button>
+      </div>
 
-    <div class="btn-row" style="margin-top: 20px;">
-      <button class="btn" id="new-game">Nouvelle partie</button>
+      <div id="mm-history" class="mm-history"></div>
+
+      <div class="btn-row" style="margin-top: 20px;">
+        <button class="btn" id="new-game">Nouvelle partie</button>
+      </div>
     </div>
   </main>
 

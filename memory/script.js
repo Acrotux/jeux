@@ -166,18 +166,30 @@
     resetTimer();
   }
 
+  function startWithSize(s) {
+    size = s;
+    document.getElementById("setup-screen").style.display = "none";
+    document.getElementById("game-content").style.display = "block";
+    newGame();
+  }
+
   document.querySelectorAll(".size-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".size-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      size = Number(btn.dataset.size);
-      newGame();
-    });
+    btn.addEventListener("click", () => startWithSize(Number(btn.dataset.size)));
   });
-  document.querySelector(`.size-btn[data-size="${size}"]`).classList.add("active");
+
+  document.getElementById("change-setup").addEventListener("click", (e) => {
+    e.preventDefault();
+    resetTimer();
+    document.getElementById("game-content").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  });
 
   document.getElementById("new-game").addEventListener("click", newGame);
   document.getElementById("win-replay").addEventListener("click", newGame);
 
-  newGame();
+  // Arrivée directe sur une taille précise (?size=4|5|6)
+  const urlSize = Number(new URLSearchParams(location.search).get("size"));
+  if (SIZE_CONFIG[urlSize]) {
+    startWithSize(urlSize);
+  }
 })();

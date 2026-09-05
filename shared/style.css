@@ -380,6 +380,14 @@ main {
 .mini-lb-pseudo { flex: 1; font-weight: 600; }
 .mini-lb-points { font-weight: 700; color: var(--primary); font-size: 0.85rem; }
 
+.setup-screen {
+  max-width: 480px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.setup-screen h2 { margin-top: 0; }
+
 .version-badge {
   position: fixed;
   right: 10px;

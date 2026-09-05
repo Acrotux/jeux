@@ -1,9 +1,3 @@
-.diff-btn.active {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
 .sudoku-wrap {
   display: flex;
   justify-content: center;
