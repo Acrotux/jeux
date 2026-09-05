@@ -1,13 +1,11 @@
 (function () {
-  const GAME_LABELS = {
-    sudoku: "🔢 Sudoku",
-    pendu: "🪢 Pendu",
-    memory: "🧠 Memory",
-    mastermind: "🎯 Mastermind",
-    musique: "🎵 Musique",
-    vitesse: "⚡ Vitesse",
-    precision: "🎯 Précision",
-  };
+  const GAME_LABELS = {};
+  (window.GAMES || []).forEach((g) => {
+    GAME_LABELS[g.id] = `${g.emoji} ${g.name}`; // ids historiques (avant le suivi par test)
+  });
+  (window.SCORE_GAMES || []).forEach((s) => {
+    GAME_LABELS[s.id] = s.label; // ids par test (ex. musique_simon)
+  });
 
   const loggedOutEl = document.getElementById("profil-logged-out");
   const notConfiguredEl = document.getElementById("profil-not-configured");

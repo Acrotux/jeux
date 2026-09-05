@@ -14,7 +14,7 @@
       statusEl.textContent = "Connecte-toi pour enregistrer ce score.";
       return;
     }
-    const res = await window.JeuxAuth.submitScore("vitesse", score);
+    const res = await window.JeuxAuth.submitScore(`vitesse_${activeMode}`, score);
     statusEl.textContent = res.saved
       ? `Score enregistré : ${score} pts`
       : "Choisis un pseudo dans ton profil pour enregistrer tes scores.";
@@ -232,6 +232,7 @@
     document.getElementById("mode-reaction").style.display = mode === "reaction" ? "block" : "none";
     document.getElementById("mode-label").textContent = MODE_LABELS[mode];
     endModal.classList.remove("open");
+    if (window.refreshMiniLeaderboard) window.refreshMiniLeaderboard(`vitesse_${mode}`);
   }
 
   document.querySelectorAll(".mode-choice-btn").forEach((btn) => {

@@ -5,16 +5,19 @@
     return div.innerHTML;
   }
 
-  document.addEventListener("DOMContentLoaded", async () => {
+  async function refresh(game) {
     const el = document.getElementById("mini-leaderboard");
-    if (!el || !window.JeuxAuth) return;
-    const game = el.dataset.game;
+    if (!el || !window.JeuxAuth || !game) return;
+    el.dataset.game = game;
 
     await window.JeuxAuth.ready();
     if (!window.JeuxAuth.isConfigured()) return;
 
     const rows = await window.JeuxAuth.fetchLeaderboard({ game, period: "all", limit: 3 });
-    if (!rows || rows.length === 0 || rows.every((r) => r.points === 0)) return;
+    if (!rows || rows.length === 0 || rows.every((r) => r.points === 0)) {
+      el.innerHTML = "";
+      return;
+    }
 
     el.innerHTML = `
       <div class="mini-lb-title">🏆 Top 3 — tous joueurs</div>
@@ -31,5 +34,12 @@
           )
           .join("")}
       </ol>`;
+  }
+
+  window.refreshMiniLeaderboard = refresh;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const el = document.getElementById("mini-leaderboard");
+    if (el && el.dataset.game) refresh(el.dataset.game);
   });
 })();

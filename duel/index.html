@@ -17,6 +17,7 @@
 <script src="../shared/supabase-config.js" defer></script>
 <script src="../shared/supabase-client.js" defer></script>
 <script src="../shared/auth-widget.js" defer></script>
+<script src="../shared/games-data.js" defer></script>
 <script src="../shared/pwa.js" defer></script>
 <script src="../shared/version-badge.js" defer></script>
 </head>
@@ -63,29 +64,13 @@
             <input type="text" id="duel-search-input" placeholder="Pseudo de ton adversaire" autocomplete="off" />
             <div id="duel-search-results" class="duel-search-results"></div>
           </div>
-          <select id="duel-game-select">
-            <option value="sudoku">🔢 Sudoku</option>
-            <option value="pendu">🪢 Pendu</option>
-            <option value="memory">🧠 Memory</option>
-            <option value="mastermind">🎯 Mastermind</option>
-            <option value="musique">🎵 Musique</option>
-            <option value="vitesse">⚡ Vitesse</option>
-            <option value="precision">🎯 Précision</option>
-          </select>
+          <select id="duel-game-select"></select>
           <button class="btn" id="duel-send-btn" disabled>Envoyer le duel</button>
         </div>
 
         <div id="duel-mode-email" class="duel-form" style="display:none;">
           <textarea id="duel-email-input" rows="2" placeholder="Une ou plusieurs adresses email, séparées par des virgules"></textarea>
-          <select id="duel-email-game-select">
-            <option value="sudoku">🔢 Sudoku</option>
-            <option value="pendu">🪢 Pendu</option>
-            <option value="memory">🧠 Memory</option>
-            <option value="mastermind">🎯 Mastermind</option>
-            <option value="musique">🎵 Musique</option>
-            <option value="vitesse">⚡ Vitesse</option>
-            <option value="precision">🎯 Précision</option>
-          </select>
+          <select id="duel-email-game-select"></select>
           <button class="btn" id="duel-email-send-btn">Inviter en duel</button>
           <p class="auth-hint">Si la personne n'a pas encore de compte, elle en recevra un pour s'inscrire et relever le duel.</p>
         </div>

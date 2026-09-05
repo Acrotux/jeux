@@ -110,6 +110,7 @@ window.buildGameActivities = function (games) {
           tags: g.styles.includes(g.name) ? [] : [g.name],
           addedAt: g.addedAt,
           updatedAt: g.updatedAt,
+          scoreGame: `${g.id}_${m.id}`,
         });
       });
     } else {
@@ -122,8 +123,18 @@ window.buildGameActivities = function (games) {
         tags: g.tags,
         addedAt: g.addedAt,
         updatedAt: g.updatedAt,
+        scoreGame: g.id,
       });
     }
   });
   return list;
 };
+
+// Liste à plat de tous les identifiants de score possibles (un par test),
+// avec un libellé lisible. Sert à construire les sélecteurs de jeu (défis)
+// et les onglets de classement, sans dupliquer la liste à la main.
+window.SCORE_GAMES = window.buildGameActivities(window.GAMES).map((a) => ({
+  id: a.scoreGame,
+  label: `${a.emoji} ${a.name}`,
+  path: a.path,
+}));

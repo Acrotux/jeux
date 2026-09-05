@@ -9,7 +9,18 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const ALLOWED_GAMES = ["sudoku", "pendu", "memory", "mastermind", "musique", "vitesse", "precision"];
+const ALLOWED_GAMES = [
+  "sudoku",
+  "pendu",
+  "memory",
+  "mastermind",
+  "musique_simon",
+  "musique_notes",
+  "vitesse_frappe",
+  "vitesse_reaction",
+  "precision_visee",
+  "precision_barre",
+];
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {

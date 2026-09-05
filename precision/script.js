@@ -14,7 +14,7 @@
       statusEl.textContent = "Connecte-toi pour enregistrer ce score.";
       return;
     }
-    const res = await window.JeuxAuth.submitScore("precision", score);
+    const res = await window.JeuxAuth.submitScore(`precision_${activeMode}`, score);
     statusEl.textContent = res.saved
       ? `Score enregistré : ${score} pts`
       : "Choisis un pseudo dans ton profil pour enregistrer tes scores.";
@@ -222,6 +222,7 @@
     document.getElementById("mode-barre").style.display = mode === "barre" ? "block" : "none";
     document.getElementById("mode-label").textContent = MODE_LABELS[mode];
     endModal.classList.remove("open");
+    if (window.refreshMiniLeaderboard) window.refreshMiniLeaderboard(`precision_${mode}`);
   }
 
   document.querySelectorAll(".mode-choice-btn").forEach((btn) => {

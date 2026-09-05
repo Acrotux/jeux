@@ -1,22 +1,10 @@
 (function () {
-  const GAME_LABELS = {
-    sudoku: "🔢 Sudoku",
-    pendu: "🪢 Pendu",
-    memory: "🧠 Memory",
-    mastermind: "🎯 Mastermind",
-    musique: "🎵 Musique",
-    vitesse: "⚡ Vitesse",
-    precision: "🎯 Précision",
-  };
-  const GAME_PATHS = {
-    sudoku: "../sudoku/index.html",
-    pendu: "../pendu/index.html",
-    memory: "../memory/index.html",
-    mastermind: "../mastermind/index.html",
-    musique: "../musique/index.html",
-    vitesse: "../vitesse/index.html",
-    precision: "../precision/index.html",
-  };
+  const GAME_LABELS = {};
+  const GAME_PATHS = {};
+  (window.SCORE_GAMES || []).forEach((s) => {
+    GAME_LABELS[s.id] = s.label;
+    GAME_PATHS[s.id] = `../${s.path}`;
+  });
 
   const loggedOutEl = document.getElementById("duel-logged-out");
   const notConfiguredEl = document.getElementById("duel-not-configured");
@@ -295,7 +283,16 @@
     loadChallenges();
   });
 
+  function populateGameSelects() {
+    const optionsHtml = (window.SCORE_GAMES || [])
+      .map((s) => `<option value="${s.id}">${s.label}</option>`)
+      .join("");
+    gameSelect.innerHTML = optionsHtml;
+    document.getElementById("duel-email-game-select").innerHTML = optionsHtml;
+  }
+
   document.addEventListener("DOMContentLoaded", async () => {
+    populateGameSelects();
     if (!window.JeuxAuth) return;
     await window.JeuxAuth.ready();
     render();

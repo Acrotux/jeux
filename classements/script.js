@@ -1,6 +1,6 @@
 (function () {
   const listEl = document.getElementById("lb-list");
-  const gameTabs = document.querySelectorAll("#lb-tabs .lb-tab");
+  const gameTabsEl = document.getElementById("lb-tabs");
   const periodTabs = document.querySelectorAll("#lb-period-tabs .lb-tab");
   let currentGame = "";
   let currentPeriod = "day";
@@ -45,15 +45,26 @@
     renderList(rows);
   }
 
-  gameTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      gameTabs.forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
-      currentGame = tab.dataset.game;
-      listEl.innerHTML = `<li class="lb-empty">Chargement…</li>`;
-      loadLeaderboard();
+  function wireGameTabs() {
+    const tabs = gameTabsEl.querySelectorAll(".lb-tab");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        currentGame = tab.dataset.game;
+        listEl.innerHTML = `<li class="lb-empty">Chargement…</li>`;
+        loadLeaderboard();
+      });
     });
-  });
+  }
+
+  function buildGameTabs() {
+    if (!window.SCORE_GAMES) return;
+    gameTabsEl.innerHTML =
+      `<button class="lb-tab active" data-game="">Tous jeux</button>` +
+      window.SCORE_GAMES.map((s) => `<button class="lb-tab" data-game="${s.id}">${s.label}</button>`).join("");
+    wireGameTabs();
+  }
 
   periodTabs.forEach((tab) => {
     tab.addEventListener("click", () => {
@@ -65,5 +76,8 @@
     });
   });
 
-  document.addEventListener("DOMContentLoaded", loadLeaderboard);
+  document.addEventListener("DOMContentLoaded", () => {
+    buildGameTabs();
+    loadLeaderboard();
+  });
 })();

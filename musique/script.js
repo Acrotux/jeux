@@ -98,7 +98,7 @@
     endTitle.textContent = level > 0 ? "🎵 Partie terminée" : "😅 Essaie encore";
     endText.textContent = `Niveau atteint : ${level}.`;
     endModal.classList.add("open");
-    if (level > 0) await saveScore("musique", level * 50);
+    if (level > 0) await saveScore("musique_simon", level * 50);
   }
 
   pads.forEach((pad, i) => {
@@ -194,7 +194,7 @@
     endTitle.textContent = "🎵 Manche terminée";
     endText.textContent = `${notesCorrect} bonne(s) réponse(s) sur ${TOTAL_ROUNDS}.`;
     endModal.classList.add("open");
-    await saveScore("musique", notesCorrect * 100);
+    await saveScore("musique_notes", notesCorrect * 100);
   }
 
   function startNotes() {
@@ -222,6 +222,7 @@
     document.getElementById("mode-notes").style.display = mode === "notes" ? "block" : "none";
     document.getElementById("mode-label").textContent = MODE_LABELS[mode];
     endModal.classList.remove("open");
+    if (window.refreshMiniLeaderboard) window.refreshMiniLeaderboard(`musique_${mode}`);
   }
 
   document.querySelectorAll(".mode-choice-btn").forEach((btn) => {
