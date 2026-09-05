@@ -210,29 +210,17 @@
   });
   document.getElementById("notes-start").addEventListener("click", startNotes);
 
-  // ===== Bascule entre les modes =====
-  const modeButtons = document.querySelectorAll(".mode-btn");
-  modeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      modeButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const mode = btn.dataset.mode;
-      document.getElementById("mode-simon").style.display = mode === "simon" ? "block" : "none";
-      document.getElementById("mode-notes").style.display = mode === "notes" ? "block" : "none";
-      endModal.classList.remove("open");
-    });
-  });
+  // ===== Mode fixé à l'arrivée (catalogue -> ?mode=simon|notes), aucun choix dans la page =====
+  const MODE_LABELS = { simon: "— Suite de sons", notes: "— Reconnaissance de notes" };
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  const activeMode = urlMode === "notes" ? "notes" : "simon";
+
+  document.getElementById("mode-simon").style.display = activeMode === "simon" ? "block" : "none";
+  document.getElementById("mode-notes").style.display = activeMode === "notes" ? "block" : "none";
+  document.getElementById("mode-label").textContent = MODE_LABELS[activeMode];
 
   endReplay.addEventListener("click", () => {
-    const activeMode = document.querySelector(".mode-btn.active").dataset.mode;
     if (activeMode === "simon") startSimon();
     else startNotes();
   });
-
-  // Arrivée directe sur un mode précis depuis le catalogue (?mode=simon|notes)
-  const urlMode = new URLSearchParams(location.search).get("mode");
-  if (urlMode) {
-    const target = document.querySelector(`.mode-btn[data-mode="${urlMode}"]`);
-    if (target) target.click();
-  }
 })();

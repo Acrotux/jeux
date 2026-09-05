@@ -220,29 +220,17 @@
 
   document.getElementById("reaction-start").addEventListener("click", startReaction);
 
-  // ===== Bascule entre les modes =====
-  const modeButtons = document.querySelectorAll(".mode-btn");
-  modeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      modeButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const mode = btn.dataset.mode;
-      document.getElementById("mode-frappe").style.display = mode === "frappe" ? "block" : "none";
-      document.getElementById("mode-reaction").style.display = mode === "reaction" ? "block" : "none";
-      endModal.classList.remove("open");
-    });
-  });
+  // ===== Mode fixé à l'arrivée (catalogue -> ?mode=frappe|reaction), aucun choix dans la page =====
+  const MODE_LABELS = { frappe: "— Frappe", reaction: "— Réactivité" };
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  const activeMode = urlMode === "reaction" ? "reaction" : "frappe";
+
+  document.getElementById("mode-frappe").style.display = activeMode === "frappe" ? "block" : "none";
+  document.getElementById("mode-reaction").style.display = activeMode === "reaction" ? "block" : "none";
+  document.getElementById("mode-label").textContent = MODE_LABELS[activeMode];
 
   endReplay.addEventListener("click", () => {
-    const activeMode = document.querySelector(".mode-btn.active").dataset.mode;
     if (activeMode === "frappe") startFrappe();
     else startReaction();
   });
-
-  // Arrivée directe sur un mode précis depuis le catalogue (?mode=frappe|reaction)
-  const urlMode = new URLSearchParams(location.search).get("mode");
-  if (urlMode) {
-    const target = document.querySelector(`.mode-btn[data-mode="${urlMode}"]`);
-    if (target) target.click();
-  }
 })();

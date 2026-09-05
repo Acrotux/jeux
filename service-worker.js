@@ -1,4 +1,4 @@
-const CACHE_NAME = "jeux-cache-v21";
+const CACHE_NAME = "jeux-cache-v22";
 
 const PRECACHE_URLS = [
   "index.html",

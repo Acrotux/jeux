@@ -1,7 +1,6 @@
-.mode-btn.active {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
+#mode-label {
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .message {

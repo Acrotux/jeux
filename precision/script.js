@@ -210,32 +210,17 @@
 
   document.getElementById("barre-start").addEventListener("click", startBarre);
 
-  // ===== Bascule entre les modes =====
-  const modeButtons = document.querySelectorAll(".mode-btn");
-  modeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      modeButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const mode = btn.dataset.mode;
-      document.getElementById("mode-visee").style.display = mode === "visee" ? "block" : "none";
-      document.getElementById("mode-barre").style.display = mode === "barre" ? "block" : "none";
-      viseeRunning = false;
-      barreRunning = false;
-      if (barreRafId) cancelAnimationFrame(barreRafId);
-      endModal.classList.remove("open");
-    });
-  });
+  // ===== Mode fixé à l'arrivée (catalogue -> ?mode=visee|barre), aucun choix dans la page =====
+  const MODE_LABELS = { visee: "— Visée", barre: "— Barre précise" };
+  const urlMode = new URLSearchParams(location.search).get("mode");
+  const activeMode = urlMode === "barre" ? "barre" : "visee";
+
+  document.getElementById("mode-visee").style.display = activeMode === "visee" ? "block" : "none";
+  document.getElementById("mode-barre").style.display = activeMode === "barre" ? "block" : "none";
+  document.getElementById("mode-label").textContent = MODE_LABELS[activeMode];
 
   endReplay.addEventListener("click", () => {
-    const activeMode = document.querySelector(".mode-btn.active").dataset.mode;
     if (activeMode === "visee") startVisee();
     else startBarre();
   });
-
-  // Arrivée directe sur un mode précis depuis le catalogue (?mode=visee|barre)
-  const urlMode = new URLSearchParams(location.search).get("mode");
-  if (urlMode) {
-    const target = document.querySelector(`.mode-btn[data-mode="${urlMode}"]`);
-    if (target) target.click();
-  }
 })();
