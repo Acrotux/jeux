@@ -23,6 +23,7 @@
   let lock = false;
   let timerInterval = null;
   let seconds = 0;
+  let timerStarted = false;
 
   function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -61,6 +62,8 @@
     if (card.classList.contains("flipped") || card.classList.contains("matched")) return;
     if (flipped.length >= 2) return;
 
+    if (!timerStarted) startTimer();
+
     card.classList.add("flipped");
     flipped.push(i);
 
@@ -97,10 +100,16 @@
     }, 700);
   }
 
-  function startTimer() {
+  function resetTimer() {
     stopTimer();
     seconds = 0;
+    timerStarted = false;
     timerEl.textContent = "00:00";
+  }
+
+  function startTimer() {
+    if (timerStarted) return;
+    timerStarted = true;
     timerInterval = setInterval(() => {
       seconds++;
       const m = String(Math.floor(seconds / 60)).padStart(2, "0");
@@ -154,7 +163,7 @@
     movesEl.textContent = "0";
     pairsEl.textContent = `0/${totalPairs}`;
     render();
-    startTimer();
+    resetTimer();
   }
 
   document.querySelectorAll(".size-btn").forEach((btn) => {

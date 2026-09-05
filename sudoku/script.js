@@ -16,6 +16,7 @@
   let errorCount = 0;
   let timerInterval = null;
   let seconds = 0;
+  let timerStarted = false;
   let solved = false;
 
   function idx(r, c) { return r * 9 + c; }
@@ -154,6 +155,8 @@
       return;
     }
 
+    if (!timerStarted) startTimer();
+
     board[selected] = val;
     cell.textContent = val;
 
@@ -220,10 +223,16 @@
   }
 
   // ---- Timer ----
-  function startTimer() {
+  function resetTimer() {
     stopTimer();
     seconds = 0;
+    timerStarted = false;
     timerEl.textContent = "00:00";
+  }
+
+  function startTimer() {
+    if (timerStarted) return;
+    timerStarted = true;
     timerInterval = setInterval(() => {
       seconds++;
       const m = String(Math.floor(seconds / 60)).padStart(2, "0");
@@ -246,7 +255,7 @@
     selected = -1;
     generatePuzzle(difficulty);
     render();
-    startTimer();
+    resetTimer();
   }
 
   // ---- Événements ----
